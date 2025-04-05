@@ -1,15 +1,15 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Background3D from './components/Background3D';
-import CustomCursor from './components/CustomCursor';
-import ScrollProgress from './components/ScrollProgress';
-import './App.css';
+import Navbar from './components/Navbar-Fuzail';
+import Hero from './components/Hero-Fuzail';
+import About from './components/About-Fuzail';
+import Projects from './components/Projects-Fuzail';
+import Skills from './components/Skills-Fuzail';
+import Contact from './components/Contact-Fuzail';
+import Footer from './components/Footer-Fuzail';
+import Background3D from './components/Background3D-Fuzail';
+import CustomCursor from './components/CustomCursor-Fuzail';
+import ScrollProgress from './components/ScrollProgress-Fuzail';
+import './App-Fuzail.css';
 
 function App() {
   return (
