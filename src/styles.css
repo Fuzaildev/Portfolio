@@ -1,0 +1,15 @@
+/* Base Styles */
+@import url('index.css');
+@import url('App.css');
+
+/* Component Styles */
+@import url('./components/Hero.css');
+@import url('./components/About.css');
+@import url('./components/Projects.css');
+@import url('./components/Skills.css');
+@import url('./components/Contact.css');
+@import url('./components/Navbar.css');
+@import url('./components/Footer.css');
+@import url('./components/CustomCursor.css');
+@import url('./components/ScrollProgress.css');
+@import url('./components/Background3D.css'); 
