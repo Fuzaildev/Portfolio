@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import './Hero.css';
@@ -15,6 +15,14 @@ const Hero = () => {
     "Tech Enthusiast",
     "Creative Thinker"
   ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [texts]);
 
   useEffect(() => {
     let currentIndex = 0;

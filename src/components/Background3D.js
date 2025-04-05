@@ -11,20 +11,15 @@ const Background3D = () => {
   const particlesRef = useRef();
 
   useEffect(() => {
-    // Scene setup
-    const scene = new THREE.Scene();
-    sceneRef.current = scene;
-    
-    // Camera setup
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
-    cameraRef.current = camera;
+    const container = containerRef.current;
+    if (!container) return;
 
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    
     renderer.setSize(window.innerWidth, window.innerHeight);
-    containerRef.current.appendChild(renderer.domElement);
-    rendererRef.current = renderer;
+    container.appendChild(renderer.domElement);
 
     // Create particles
     const particlesGeometry = new THREE.BufferGeometry();
@@ -39,39 +34,21 @@ const Background3D = () => {
 
     const particlesMaterial = new THREE.PointsMaterial({
       size: 0.005,
-      color: '#2563eb',
+      color: '#ffffff',
       transparent: true,
       opacity: 0.8,
-      blending: THREE.AdditiveBlending
     });
 
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
-    particlesRef.current = particlesMesh;
 
-    // Mouse move handler
-    const handleMouseMove = (event) => {
-      mousePosition.current = {
-        x: (event.clientX / window.innerWidth) * 2 - 1,
-        y: -(event.clientY / window.innerHeight) * 2 + 1
-      };
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
+    camera.position.z = 2;
 
     // Animation
     const animate = () => {
       requestAnimationFrame(animate);
-
-      if (particlesRef.current) {
-        particlesRef.current.rotation.x += 0.0005;
-        particlesRef.current.rotation.y += 0.0005;
-
-        // Mouse interaction
-        particlesRef.current.rotation.x += mousePosition.current.y * 0.0003;
-        particlesRef.current.rotation.y += mousePosition.current.x * 0.0003;
-      }
-
+      particlesMesh.rotation.y += 0.001;
+      particlesMesh.rotation.x += 0.001;
       renderer.render(scene, camera);
     };
 
@@ -88,13 +65,13 @@ const Background3D = () => {
 
     // Cleanup
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
-      containerRef.current?.removeChild(renderer.domElement);
-      scene.remove(particlesRef.current);
+      if (container && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
       particlesGeometry.dispose();
       particlesMaterial.dispose();
-      renderer.dispose();
     };
   }, []);
 
