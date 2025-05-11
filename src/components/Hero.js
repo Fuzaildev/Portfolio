@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 import './Hero.css';
 
@@ -22,7 +22,7 @@ const Hero = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [texts]);
+  }, [texts.length]);
 
   useEffect(() => {
     let currentIndex = 0;
@@ -54,7 +54,7 @@ const Hero = () => {
         clearTimeout(timeoutId);
       }
     };
-  }, [currentTextIndex]);
+  }, [currentTextIndex, texts]);
 
   return (
     <section id="home" className="hero">

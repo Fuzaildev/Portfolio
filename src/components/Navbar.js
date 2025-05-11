@@ -5,7 +5,6 @@ import './Navbar.css';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,18 +15,9 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    document.body.classList.toggle('dark-mode', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
     document.body.style.overflow = !isOpen ? 'hidden' : 'auto';
-  };
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
   const menuVariants = {
@@ -44,40 +34,6 @@ const Navbar = () => {
       x: 0,
       transition: {
         duration: 0.3,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const hamburgerVariants = {
-    closed: {
-      rotate: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    },
-    open: {
-      rotate: 45,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const lineVariants = {
-    closed: {
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    },
-    open: {
-      opacity: 0,
-      transition: {
-        duration: 0.2,
         ease: "easeInOut"
       }
     }
