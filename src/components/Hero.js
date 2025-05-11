@@ -3,26 +3,27 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 import './Hero.css';
 
+// Move texts array outside the component
+const texts = [
+  "Full Stack Developer",
+  "UI/UX Designer",
+  "Problem Solver",
+  "Tech Enthusiast",
+  "Creative Thinker"
+];
+
 const Hero = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   
-  const texts = [
-    "Full Stack Developer",
-    "UI/UX Designer",
-    "Problem Solver",
-    "Tech Enthusiast",
-    "Creative Thinker"
-  ];
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [texts.length]);
+  }, []);
 
   useEffect(() => {
     let currentIndex = 0;
@@ -54,7 +55,7 @@ const Hero = () => {
         clearTimeout(timeoutId);
       }
     };
-  }, [currentTextIndex, texts]);
+  }, [currentTextIndex]);
 
   return (
     <section id="home" className="hero">
