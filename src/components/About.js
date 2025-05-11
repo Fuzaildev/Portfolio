@@ -53,9 +53,17 @@ const About = () => {
               Node.js, and modern web technologies, always staying up-to-date with
               the latest industry trends and best practices.
             </p>
+            <div className="about-fun-facts">
+              <h3>Fun Facts</h3>
+              <ul>
+                <li>🌍 Based in Madhya Pradesh, India</li>
+                <li>🚗 I love cars! I'm a car enthusiast and enjoy learning about automotive tech.</li>
+                <li>🚀 Always eager to learn new tech</li>
+              </ul>
+            </div>
           </motion.div>
 
-          <motion.div className="about-stats" variants={itemVariants}>
+          <div className="about-stats">
             <div className="stat-item">
               <h3>3+</h3>
               <p>Years Experience</p>
@@ -68,46 +76,7 @@ const About = () => {
               <h3>15+</h3>
               <p>Technologies</p>
             </div>
-          </motion.div>
-
-          <motion.div className="about-skills" variants={itemVariants}>
-            <h3>Core Skills</h3>
-            <div className="skills-grid">
-              <div className="skill-item">
-                <span className="skill-name">React</span>
-                <div className="skill-bar">
-                  <motion.div
-                    className="skill-progress"
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: "90%" } : { width: 0 }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                  />
-                </div>
-              </div>
-              <div className="skill-item">
-                <span className="skill-name">Node.js</span>
-                <div className="skill-bar">
-                  <motion.div
-                    className="skill-progress"
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: "85%" } : { width: 0 }}
-                    transition={{ duration: 1, delay: 0.7 }}
-                  />
-                </div>
-              </div>
-              <div className="skill-item">
-                <span className="skill-name">JavaScript</span>
-                <div className="skill-bar">
-                  <motion.div
-                    className="skill-progress"
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: "95%" } : { width: 0 }}
-                    transition={{ duration: 1, delay: 0.9 }}
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaEnvelope } from 'react-icons/fa';
 import './Contact.css';
 
 const Contact = () => {
@@ -70,23 +70,7 @@ const Contact = () => {
                 <FaEnvelope className="contact-icon" />
                 <div>
                   <h3>Email</h3>
-                  <p>your.email@example.com</p>
-                </div>
-              </div>
-
-              <div className="contact-item">
-                <FaPhone className="contact-icon" />
-                <div>
-                  <h3>Phone</h3>
-                  <p>+1 234 567 890</p>
-                </div>
-              </div>
-
-              <div className="contact-item">
-                <FaMapMarkerAlt className="contact-icon" />
-                <div>
-                  <h3>Location</h3>
-                  <p>Your City, Country</p>
+                  <p>fuzail0702@gmail.com</p>
                 </div>
               </div>
             </div>

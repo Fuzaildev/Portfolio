@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 import './Hero.css';
 
 const Hero = () => {
@@ -65,7 +65,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="hero-text"
         >
-          <h1>Hi, I'm <span className="highlight">Your Name</span></h1>
+          <h1>Hi, I'm <span className="highlight">Fuzail</span></h1>
           <div className="text-container">
             <h2>I'm a</h2>
             <div className="changing-text">
@@ -104,14 +104,14 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="social-links"
         >
-          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/Fuzaildev" target="_blank" rel="noopener noreferrer">
             <FaGithub />
           </a>
-          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/thefuzailkhan/" target="_blank" rel="noopener noreferrer">
             <FaLinkedin />
           </a>
-          <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer">
-            <FaTwitter />
+          <a href="https://x.com/TheFuzailKhan" target="_blank" rel="noopener noreferrer">
+            <FaXTwitter />
           </a>
         </motion.div>
       </div>

@@ -1,12 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary-color: #2563eb;
-  --secondary-color: #1e40af;
+  --primary-color: #eab40f;
+  --secondary-color: #E6A800;
   --text-color: #1f2937;
   --light-text: #6b7280;
   --background: #ffffff;
   --section-bg: #f3f4f6;
+  --card-bg: #fff;
+}
+
+body.dark-mode, .dark-mode {
+  --primary-color: #ffc000;
+  --secondary-color: #e6a800;
+  --text-color: #f3f4f6;
+  --light-text: #b0b3b8;
+  --background: #18191a;
+  --section-bg: #23272f;
+  --card-bg: #23272f;
 }
 
 * {
@@ -17,36 +28,42 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
   color: var(--text-color);
   line-height: 1.6;
-  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 .App {
   text-align: center;
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  width: 100%;
   background: var(--background);
 }
 
 main {
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 section {
   padding: 5rem 2rem;
+  width: 100%;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -129,21 +146,33 @@ h1, h2, h3, h4, h5, h6 {
   section {
     padding: 3rem 1rem;
   }
+  
+  /* Ensure proper touch handling on mobile */
+  * {
+    cursor: auto !important;
+  }
+  
+  /* Ensure proper scrolling on mobile */
+  html, body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+  }
 }
 
-/* Hide default cursor on desktop */
+/* Hide default cursor only on desktop */
 @media (min-width: 769px) {
   * {
     cursor: none !important;
   }
-}
-
-/* Ensure interactive elements are clickable */
-a, button, input, textarea {
-  cursor: pointer !important;
-}
-
-/* Ensure text is selectable */
-p, h1, h2, h3, h4, h5, h6, span {
-  cursor: text !important;
+  
+  /* Ensure interactive elements are clickable on desktop */
+  a, button, input, textarea {
+    cursor: pointer !important;
+  }
+  
+  /* Ensure text is selectable on desktop */
+  p, h1, h2, h3, h4, h5, h6, span {
+    cursor: text !important;
+  }
 } 

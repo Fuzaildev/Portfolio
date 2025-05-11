@@ -142,13 +142,27 @@
 }
 
 .social-links a {
-  color: var(--text-color);
   font-size: 1.5rem;
-  transition: color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .social-links a:hover {
-  color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+/* GitHub - Black */
+.social-links a:nth-child(1) {
+  color: #24292e;
+}
+
+/* LinkedIn - Blue */
+.social-links a:nth-child(2) {
+  color: #0077b5;
+}
+
+/* X - Black */
+.social-links a:nth-child(3) {
+  color: #000000;
 }
 
 .hero-scroll {
@@ -211,8 +225,11 @@
     margin: 0 auto;
   }
 
-  .hero-social {
-    flex-direction: row;
+  .social-links {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
     justify-content: center;
     margin-top: 2rem;
   }
