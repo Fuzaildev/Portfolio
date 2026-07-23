@@ -479,9 +479,6 @@ export default function Projects({ index, total }) {
             <h2 className="mt-2 font-display text-3xl font-semibold text-white sm:mt-3 sm:text-4xl md:text-5xl">
               Selected <span className="text-gradient-brand">work</span>
             </h2>
-            <p className="mx-auto mt-2 max-w-md text-sm text-white/50 sm:mx-0">
-              Scroll to move through each project — then continue below.
-            </p>
           </div>
 
           <div className="flex items-center justify-center gap-4 sm:justify-start lg:pb-1">

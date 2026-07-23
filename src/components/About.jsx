@@ -91,11 +91,6 @@ function StackAtlas() {
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.35em] text-gold/80">
             Stack atlas
           </p>
-          <p className="mt-1 text-sm text-white/40">
-            <span className="hidden sm:inline">Hover or tap</span>
-            <span className="sm:hidden">Tap</span> a layer — how I ship end to
-            end.
-          </p>
         </div>
 
         {/* Live stack signal */}
