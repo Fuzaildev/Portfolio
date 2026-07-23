@@ -3,8 +3,12 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { useInView } from "../hooks/useInView";
 
 const SOCIALS = [
-  { label: "GitHub", href: "https://github.com/", Icon: FaGithub },
-  { label: "LinkedIn", href: "https://linkedin.com/", Icon: FaLinkedin },
+  { label: "GitHub", href: "https://github.com/fuzaildev", Icon: FaGithub },
+  {
+    label: "LinkedIn",
+    href: "https://in.linkedin.com/in/thefuzailkhan",
+    Icon: FaLinkedin,
+  },
   { label: "Twitter", href: "https://x.com/", Icon: FaTwitter },
 ];
 

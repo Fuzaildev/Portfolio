@@ -8,12 +8,12 @@ const EMAIL = "hello@fuzailkhan.dev";
 const LINKS = [
   {
     label: "GitHub",
-    href: "https://github.com/",
+    href: "https://github.com/fuzaildev",
     Icon: FaGithub,
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/",
+    href: "https://in.linkedin.com/in/thefuzailkhan",
     Icon: FaLinkedin,
   },
   {
