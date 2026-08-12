@@ -3,7 +3,8 @@ export const site = {
   shortName: "FK",
   role: "Full Stack Developer",
   url: "https://fuzailkhan.vercel.app",
-  email: "hello@yourname.dev",
+  // email: "hello@yourname.dev",
+  email: "",
   location: "Available worldwide",
   seoDescription:
     "Full stack developer turning ideas into responsive interfaces, solid APIs, and scalable products — React on the front, Python and Django on the back.",
@@ -28,10 +29,9 @@ export const site = {
     "Whether it's a SaaS dashboard, a brand website, or a design system, I aim for work that feels precise without being cold — structured, readable, and built to last.",
   ],
   social: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    dribbble: "https://dribbble.com",
-    twitter: "https://twitter.com",
+    github: "https://github.com/fuzaildev",
+    linkedin: "https://www.linkedin.com/in/thefuzailkhan",
+    x: "https://x.com/thefuzailkhan",
   },
 };
 

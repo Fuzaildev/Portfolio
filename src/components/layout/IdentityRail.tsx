@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SocialLinks } from "@/components/SocialLinks";
 import { indexNav, site } from "@/data/portfolio";
 
 export function IdentityRail() {
@@ -99,25 +100,16 @@ export function IdentityRail() {
       </nav>
 
       <div className="folio-rail-footer">
-        <a
+        {/* <a
           href={`mailto:${site.email}`}
           className="folio-email label-mono text-ink underline-offset-4 hover:underline"
         >
           {site.email}
-        </a>
-        <div className="folio-social flex gap-4 lg:hidden">
-          {Object.entries(site.social).slice(0, 2).map(([key, href]) => (
-            <a
-              key={key}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="label-mono capitalize text-muted hover:text-ink"
-            >
-              {key}
-            </a>
-          ))}
-        </div>
+        </a> */}
+        <p className="folio-email label-mono text-muted">
+          Reach out on socials for work
+        </p>
+        <SocialLinks className="folio-social flex gap-2 lg:hidden" />
       </div>
     </aside>
   );

@@ -16,7 +16,7 @@ export const jsonLd = {
   url: site.url,
   jobTitle: site.role,
   description: site.seoDescription,
-  email: site.email,
+  ...(site.email ? { email: site.email } : {}),
   sameAs: Object.values(site.social).filter(Boolean),
   knowsAbout: site.keywords,
 };

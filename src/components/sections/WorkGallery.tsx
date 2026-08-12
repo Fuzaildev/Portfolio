@@ -17,7 +17,7 @@ export function WorkGallery() {
     const track = trackRef.current;
     const pin = pinRef.current;
     const scroller = scrollerRef.current;
-    if (!section || !track || !pin) return;
+    if (!section || !track || !pin || !scroller) return;
 
     const mm = gsap.matchMedia();
 
@@ -25,7 +25,7 @@ export function WorkGallery() {
       gsap.set(track, { x: 0 });
 
       const getScrollDistance = () =>
-        Math.max(track.scrollWidth - pin.offsetWidth, 0);
+        Math.max(track.scrollWidth - scroller.clientWidth, 0);
 
       const snapPoints =
         projects.length <= 1
@@ -39,8 +39,9 @@ export function WorkGallery() {
           id: "work-gallery",
           trigger: section,
           start: "top top",
-          end: () => `+=${getScrollDistance()}`,
+          end: () => `+=${Math.max(getScrollDistance(), 1)}`,
           pin: pin,
+          pinSpacing: true,
           scrub: 0.8,
           invalidateOnRefresh: true,
           anticipatePin: 1,
@@ -57,6 +58,7 @@ export function WorkGallery() {
       });
 
       scrollTriggerRef.current = tween.scrollTrigger ?? null;
+      ScrollTrigger.refresh();
 
       return () => {
         scrollTriggerRef.current = null;

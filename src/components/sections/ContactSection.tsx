@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
-import { site } from "@/data/portfolio";
+import { SocialLinks } from "@/components/SocialLinks";
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -35,10 +35,10 @@ export function ContactSection() {
 
       <p className="contact-block mt-5 max-w-xl text-sm leading-relaxed text-muted sm:mt-6 sm:text-base md:text-lg">
         If you&apos;re building something that needs strong design, solid engineering,
-        or both — send a note. I reply to every thoughtful message.
+        or both — reach out on socials. I reply to every thoughtful message.
       </p>
 
-      <a
+      {/* <a
         href={`mailto:${site.email}`}
         className="contact-block contact-email group mt-8 inline-flex min-h-11 items-center gap-3 border-b border-ink pb-2 sm:mt-10"
       >
@@ -46,21 +46,13 @@ export function ContactSection() {
         <span className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
           ↗
         </span>
-      </a>
+      </a> */}
 
-      <div className="contact-block contact-social mt-8 flex flex-wrap gap-4 sm:mt-10 sm:gap-6">
-        {Object.entries(site.social).map(([key, href]) => (
-          <a
-            key={key}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="label-mono inline-flex min-h-11 items-center capitalize text-muted transition-colors hover:text-ink"
-          >
-            {key}
-          </a>
-        ))}
-      </div>
+      <p className="contact-block contact-email mt-8 text-sm text-muted sm:mt-10 sm:text-base">
+        Reach out on socials for work inquiries.
+      </p>
+
+      <SocialLinks className="contact-block contact-social mt-8 flex flex-wrap gap-2 sm:mt-10 sm:gap-3" />
     </section>
   );
 }

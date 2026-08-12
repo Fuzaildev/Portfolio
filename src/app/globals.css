@@ -45,7 +45,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
-  overflow-x: clip;
+  /* Avoid overflow-x on body — it breaks ScrollTrigger pin (work gallery) */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -71,6 +71,7 @@ body {
 .page-shell {
   width: min(100%, 1440px);
   margin-inline: auto;
+  overflow-x: clip;
 }
 
 .section-block {
@@ -552,10 +553,11 @@ body {
     scroll-snap-type: none;
   }
 
+  /* Definite widths — % basis fails when .work-track is width: max-content */
   .project-panel {
-    flex: 0 0 100%;
-    width: 100%;
-    max-width: 100%;
+    flex: 0 0 min(100%, 35rem);
+    width: min(100%, 35rem);
+    max-width: none;
     min-height: auto;
   }
 
@@ -570,7 +572,8 @@ body {
   }
 
   .project-panel {
-    flex-basis: min(38vw, 35rem);
+    flex: 0 0 min(38vw, 35rem);
+    width: min(38vw, 35rem);
   }
 }
 
