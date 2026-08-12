@@ -1,16 +1,16 @@
 export const site = {
   name: "Fuzail Khan",
   shortName: "FK",
-  role: "Full Stack Developer",
+  role: "Full Stack Engineer",
   url: "https://fuzailkhan.vercel.app",
   // email: "hello@yourname.dev",
   email: "",
-  location: "Available worldwide",
+  location: "Remote · Worldwide",
   seoDescription:
-    "Full stack developer turning ideas into responsive interfaces, solid APIs, and scalable products — React on the front, Python and Django on the back.",
+    "Full stack engineer shipping production web applications with React, Python, and Django. UI implementation, REST APIs, database design, and deployment.",
   keywords: [
     "Fuzail Khan",
-    "Full Stack Developer",
+    "Full Stack Engineer",
     "Frontend Developer",
     "React Developer",
     "Django Developer",
@@ -23,10 +23,10 @@ export const site = {
     "MySQL",
   ],
   statement:
-    "I build products where interface clarity, motion discipline, and engineering depth meet — from first sketch to production deployment.",
+    "I build and ship full stack web products: React frontends, Python/Django APIs, and the data layer to support them in production.",
   bio: [
-    "I work across design and code, treating every screen as both a system and a story. My process starts with understanding the user, continues through typography and interaction decisions, and ends with maintainable architecture.",
-    "Whether it's a SaaS dashboard, a brand website, or a design system, I aim for work that feels precise without being cold — structured, readable, and built to last.",
+    "I work across the stack on web applications, from component architecture and API contracts to schema design and deployment. I prioritize maintainable code, measurable performance, and systems that are straightforward to extend as requirements change.",
+    "Recent work includes SaaS dashboards, client-facing marketing sites, internal tools, and Flutter apps backed by Django REST APIs. I care about getting the fundamentals right: auth, error handling, caching, and interfaces that stay fast under real traffic.",
   ],
   social: {
     github: "https://github.com/fuzaildev",
@@ -57,10 +57,10 @@ export const projects: Project[] = [
   {
     id: "01",
     title: "Atlas Platform",
-    type: "Product Design + Full Stack",
+    type: "Full Stack",
     year: "2025",
     description:
-      "Multi-tenant analytics platform with a shared component library, role-based dashboards, and real-time data views.",
+      "Multi-tenant analytics platform with role-based access, shared React components, PostgreSQL-backed reporting, and real-time dashboard updates.",
     stack: ["Next.js", "Node.js", "PostgreSQL", "Figma"],
     link: "#",
   },
@@ -70,17 +70,17 @@ export const projects: Project[] = [
     type: "Frontend Engineering",
     year: "2025",
     description:
-      "Headless storefront focused on performance, editorial product pages, and a custom checkout with motion-led storytelling.",
+      "Headless Shopify storefront with a custom React checkout, optimized product pages, and GSAP-driven page transitions without sacrificing load time.",
     stack: ["React", "Shopify", "GSAP", "Tailwind"],
     link: "#",
   },
   {
     id: "03",
     title: "Pulse Health",
-    type: "UI/UX + Mobile",
+    type: "Mobile + API",
     year: "2024",
     description:
-      "Patient wellness application with accessible onboarding, health data visualization, and a calm visual language.",
+      "Cross-platform wellness app with accessible onboarding, health metric charts, and offline-friendly data sync via REST APIs.",
     stack: ["React Native", "TypeScript", "Figma"],
     link: "#",
   },
@@ -90,17 +90,17 @@ export const projects: Project[] = [
     type: "Design System",
     year: "2024",
     description:
-      "Token-driven component library and documentation site used across marketing and product teams.",
+      "Design system with CSS custom properties, React primitives, and Storybook documentation adopted by marketing and product teams.",
     stack: ["React", "Storybook", "CSS Variables"],
     link: "#",
   },
   {
     id: "05",
     title: "Verse Creative",
-    type: "Creative Development",
+    type: "Frontend",
     year: "2023",
     description:
-      "Agency portfolio with scroll choreography, case study templates, and a modular CMS-driven layout system.",
+      "Agency portfolio built on a CMS-driven layout system with GSAP scroll interactions, reusable case study templates, and Lenis smooth scrolling.",
     stack: ["Three.js", "GSAP", "Lenis"],
     link: "#",
   },
@@ -119,28 +119,28 @@ export const roles: Role[] = [
   {
     id: "1",
     company: "Kailune",
-    title: "Full Stack Developer",
-    period: "Jul 2026 — Present",
+    title: "Full Stack Engineer",
+    period: "Jul 2026 to Present",
     summary:
-      "Building scalable sites end to end — React on the surface, solid APIs and data underneath, plus Framer builds with the kind of smooth scrolling that feels intentional.",
+      "Own full stack delivery across React applications, Django/Python services, and MySQL data layers. Also ship marketing sites in Framer with performance-focused motion.",
     points: [
-      "Shipping full-stack websites across frontend, backend, and database — designed to stay fast as they grow.",
-      "Crafting Framer experiences with polished motion and Lenis-style smooth scrolling.",
-      "Keeping the stack coherent so design, interaction, and data all move as one product.",
+      "Build and deploy features spanning React UI, REST endpoints, and database schema changes.",
+      "Deliver Framer sites with Lenis smooth scroll and GSAP animation, tuned for Core Web Vitals.",
+      "Drive technical decisions from component structure through production rollout and iteration.",
     ],
   },
   {
     id: "2",
     company: "Saify Technology",
     title: "Frontend Developer",
-    period: "Mar 2025 — Jun 2026",
+    period: "Mar 2025 to Jun 2026",
     summary:
-      "Built cross-platform web and mobile products with React, Flutter, and JavaScript — with Django APIs and third-party integrations keeping everything wired for production.",
+      "Developed React and Flutter clients integrated with Django REST APIs for cross-platform web and mobile products in production.",
     points: [
-      "Developed responsive web and mobile apps focused on performance, usability, and clean interaction.",
-      "Shipped Flutter apps with prompt-assisted workflows for UI, app logic, and API integration.",
-      "Built Django backend APIs for authentication, data handling, and live production features.",
-      "Integrated third-party APIs and SDKs across Canva, Adobe Photoshop, Microsoft Office, and Google Workspace.",
+      "Shipped responsive web apps and Flutter mobile clients focused on performance and maintainable state management.",
+      "Implemented Django REST APIs for authentication, business logic, and third-party service integration.",
+      "Built backend endpoints for data persistence, file handling, and live production features.",
+      "Integrated third-party APIs and SDKs for Canva, Adobe Creative Cloud, Microsoft 365, and Google Workspace.",
     ],
   },
 ];

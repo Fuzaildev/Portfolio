@@ -149,8 +149,15 @@ body {
   padding-bottom: 0.875rem;
 }
 
-.folio-rail-footer {
+.folio-rail-header {
   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.folio-rail-footer {
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -158,50 +165,133 @@ body {
   border-top: 1px solid var(--line);
 }
 
-.folio-mobile-nav {
-  margin-inline: calc(var(--page-inline) * -1);
-  padding-inline: var(--page-inline);
-  padding-bottom: 0.75rem;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.folio-mobile-nav-track {
-  display: flex;
-  gap: 0.5rem;
-  width: max-content;
-  min-width: 100%;
-  padding-bottom: 0.125rem;
-}
-
-.folio-mobile-nav-item {
+.folio-hamburger {
+  position: relative;
+  z-index: 60;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-  min-height: 2.5rem;
-  padding: 0.5rem 0.875rem;
-  border: 1px solid var(--line);
-  background: var(--surface);
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-top: 0.125rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.folio-hamburger.is-open {
+  color: var(--ink);
+}
+
+.folio-hamburger-lines {
+  position: relative;
+  display: block;
+  width: 1.125rem;
+  height: 0.625rem;
+}
+
+.folio-hamburger-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.folio-hamburger-line--top {
+  top: 0;
+}
+
+.folio-hamburger-line--bottom {
+  bottom: 0;
+}
+
+.folio-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.folio-menu-backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--ink) 18%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  will-change: opacity;
+}
+
+.folio-menu-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding:
+    calc(var(--rail-height-mobile, 5rem) + 1.5rem)
+    var(--page-inline)
+    max(2rem, env(safe-area-inset-bottom));
+  background: var(--paper);
+  clip-path: inset(0 0 100% 0 round 0px);
+  will-change: clip-path;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.folio-menu-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  perspective: 800px;
+}
+
+.folio-menu-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  width: 100%;
+  padding-block: 1.125rem;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
   color: var(--muted);
-  font-size: 0.8125rem;
-  white-space: nowrap;
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease;
+  text-align: left;
+  cursor: pointer;
+  transform-origin: left center;
+  will-change: transform, opacity;
+  transition: color 0.2s ease;
 }
 
-.folio-mobile-nav-item.is-active {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--paper);
+.folio-menu-item:first-child {
+  border-top: 1px solid var(--line);
 }
 
-.folio-mobile-nav-item.is-active .label-mono {
-  color: color-mix(in srgb, var(--paper) 72%, transparent);
+.folio-menu-item.is-active {
+  color: var(--ink);
+}
+
+.folio-menu-item-num {
+  color: color-mix(in srgb, var(--muted) 85%, transparent);
+  transition: color 0.2s ease;
+}
+
+.folio-menu-item.is-active .folio-menu-item-num {
+  color: var(--ink);
+}
+
+.folio-menu-item-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 7vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .folio-main {
@@ -222,7 +312,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-.folio-mobile-nav::-webkit-scrollbar,
 .work-scroller::-webkit-scrollbar {
   display: none;
 }
@@ -525,6 +614,7 @@ body {
   }
 
   .folio-rail-footer {
+    display: flex;
     border-top: none;
     padding-block: 0;
     flex-direction: column;
@@ -536,8 +626,9 @@ body {
     display: none !important;
   }
 
-  .folio-mobile-nav {
-    display: none;
+  .folio-hamburger,
+  .folio-menu-overlay {
+    display: none !important;
   }
 
   .folio-main {

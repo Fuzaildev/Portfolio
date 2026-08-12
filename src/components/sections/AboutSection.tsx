@@ -35,8 +35,7 @@ export function AboutSection() {
 
       <div className="about-block about-grid mt-6 sm:mt-8">
         <blockquote className="display-serif about-quote font-medium leading-tight">
-          “I care about the quiet details — rhythm, spacing, hierarchy — the things
-          people feel before they notice.”
+          “I optimize for software that is reliable in production, straightforward to maintain, and fast for end users.”
         </blockquote>
 
         <div className="space-y-5 sm:space-y-6">

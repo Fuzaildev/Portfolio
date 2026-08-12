@@ -3,7 +3,7 @@ import { site } from "@/data/portfolio";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${site.name} — ${site.role}`,
+    name: `${site.name} | ${site.role}`,
     short_name: site.shortName,
     description: site.seoDescription,
     start_url: "/",

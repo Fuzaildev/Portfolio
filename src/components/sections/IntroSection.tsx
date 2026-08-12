@@ -40,10 +40,10 @@ export function IntroSection() {
 
       <h2 className="display-serif intro-fade intro-headline mt-4 font-medium sm:mt-6">
         <span className="block overflow-hidden">
-          <span className="intro-line block">Design-led engineer</span>
+          <span className="intro-line block">Full stack engineer</span>
         </span>
         <span className="block overflow-hidden">
-          <span className="intro-line block text-muted">building for the web.</span>
+          <span className="intro-line block text-muted">building for production.</span>
         </span>
       </h2>
 

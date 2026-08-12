@@ -6,7 +6,7 @@ export const seo = {
   titleTemplate: `%s | ${site.name}`,
   description: site.seoDescription,
   keywords: site.keywords,
-  ogImageAlt: `${site.name} — ${site.role} portfolio`,
+  ogImageAlt: `${site.name} | ${site.role} portfolio`,
 } as const;
 
 export const jsonLd = {

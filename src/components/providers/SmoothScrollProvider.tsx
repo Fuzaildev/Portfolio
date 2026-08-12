@@ -2,7 +2,12 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { gsap, ScrollTrigger, registerGsapPlugins } from "@/lib/gsap";
+import {
+  gsap,
+  ScrollTrigger,
+  registerGsapPlugins,
+  whenLayoutReady,
+} from "@/lib/gsap";
 
 export function SmoothScrollProvider({
   children,
@@ -35,15 +40,11 @@ export function SmoothScrollProvider({
     };
 
     window.addEventListener("resize", onResize);
-    // Refresh after layout + fonts settle so pin distances are correct
-    requestAnimationFrame(() => ScrollTrigger.refresh());
-    const fontsReady =
-      "fonts" in document
-        ? document.fonts.ready.then(() => ScrollTrigger.refresh())
-        : Promise.resolve();
+    whenLayoutReady().then(() => {
+      ScrollTrigger.refresh();
+    });
 
     return () => {
-      void fontsReady;
       window.removeEventListener("resize", onResize);
       gsap.ticker.remove(ticker);
       lenis.destroy();

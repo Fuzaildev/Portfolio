@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SocialLinks } from "@/components/SocialLinks";
+import { MobileNavMenu } from "@/components/layout/MobileNavMenu";
 import { indexNav, site } from "@/data/portfolio";
 
 export function IdentityRail() {
@@ -28,18 +29,6 @@ export function IdentityRail() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const nav = document.querySelector(".folio-mobile-nav-track");
-    const activeBtn = nav?.querySelector<HTMLElement>(
-      `.folio-mobile-nav-item.is-active`
-    );
-    activeBtn?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
-  }, [active]);
-
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -47,17 +36,21 @@ export function IdentityRail() {
   return (
     <aside className="folio-rail">
       <div className="folio-rail-top">
-        <div className="folio-rail-brand">
-          <p className="label-mono text-muted">{site.location}</p>
-          <h1 className="display-serif folio-name mt-3 font-semibold sm:mt-4">
-            {site.name}
-          </h1>
-          <p className="folio-role mt-3 max-w-sm text-sm leading-relaxed text-muted sm:mt-4 md:text-[0.95rem]">
-            {site.role}
-          </p>
-          <p className="folio-statement mt-5 hidden max-w-prose text-sm leading-relaxed text-muted md:block">
-            {site.statement}
-          </p>
+        <div className="folio-rail-header">
+          <div className="folio-rail-brand">
+            <p className="label-mono text-muted">{site.location}</p>
+            <h1 className="display-serif folio-name mt-3 font-semibold sm:mt-4">
+              {site.name}
+            </h1>
+            <p className="folio-role mt-3 max-w-sm text-sm leading-relaxed text-muted sm:mt-4 md:text-[0.95rem]">
+              {site.role}
+            </p>
+            <p className="folio-statement mt-5 hidden max-w-prose text-sm leading-relaxed text-muted md:block">
+              {site.statement}
+            </p>
+          </div>
+
+          <MobileNavMenu active={active} onNavigate={scrollTo} />
         </div>
 
         <nav aria-label="Section index" className="folio-rail-nav hidden lg:block">
@@ -77,28 +70,6 @@ export function IdentityRail() {
         </nav>
       </div>
 
-      <nav
-        aria-label="Mobile section index"
-        className="folio-mobile-nav lg:hidden"
-        data-lenis-prevent
-      >
-        <div className="folio-mobile-nav-track">
-          {indexNav.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => scrollTo(item.id)}
-              className={`folio-mobile-nav-item ${
-                active === item.id ? "is-active" : ""
-              }`}
-            >
-              <span className="label-mono">{item.num}</span>
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </div>
-      </nav>
-
       <div className="folio-rail-footer">
         {/* <a
           href={`mailto:${site.email}`}
@@ -106,10 +77,8 @@ export function IdentityRail() {
         >
           {site.email}
         </a> */}
-        <p className="folio-email label-mono text-muted">
-          Reach out on socials for work
-        </p>
-        <SocialLinks className="folio-social flex gap-2 lg:hidden" />
+        <p className="folio-email label-mono text-muted">Open to new work</p>
+        <SocialLinks className="folio-social mt-3 flex gap-2" />
       </div>
     </aside>
   );

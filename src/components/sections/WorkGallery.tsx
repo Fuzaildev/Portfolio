@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap, ScrollTrigger, whenLayoutReady } from "@/lib/gsap";
 import { projects } from "@/data/portfolio";
 
 export function WorkGallery() {
@@ -19,70 +19,89 @@ export function WorkGallery() {
     const scroller = scrollerRef.current;
     if (!section || !track || !pin || !scroller) return;
 
+    let cancelled = false;
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 1024px)", () => {
-      gsap.set(track, { x: 0 });
-
-      const getScrollDistance = () =>
-        Math.max(track.scrollWidth - scroller.clientWidth, 0);
-
-      const snapPoints =
-        projects.length <= 1
-          ? [0]
-          : projects.map((_, i) => i / (projects.length - 1));
-
-      const tween = gsap.to(track, {
-        x: () => -getScrollDistance(),
-        ease: "none",
+    const ctx = gsap.context(() => {
+      gsap.from(".work-headline", {
+        opacity: 0,
+        y: 40,
+        duration: 0.9,
+        ease: "power3.out",
         scrollTrigger: {
-          id: "work-gallery",
           trigger: section,
-          start: "top top",
-          end: () => `+=${Math.max(getScrollDistance(), 1)}`,
-          pin: pin,
-          pinSpacing: true,
-          scrub: 0.8,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-          snap: {
-            snapTo: (value) => gsap.utils.snap(snapPoints, value),
-            duration: { min: 0.15, max: 0.45 },
-            ease: "power1.inOut",
-          },
-          onUpdate: (self) => {
-            const index = Math.round(self.progress * (projects.length - 1));
-            setActiveIndex(index);
-          },
+          start: "top 85%",
         },
       });
+    }, sectionRef);
 
-      scrollTriggerRef.current = tween.scrollTrigger ?? null;
-      ScrollTrigger.refresh();
+    whenLayoutReady().then(() => {
+      if (cancelled) return;
 
-      return () => {
-        scrollTriggerRef.current = null;
-        tween.scrollTrigger?.kill();
-        gsap.set(track, { clearProps: "transform" });
-      };
-    });
+      mm.add("(min-width: 1024px)", () => {
+        gsap.set(track, { x: 0 });
 
-    gsap.from(".work-headline", {
-      opacity: 0,
-      y: 40,
-      duration: 0.9,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: section,
-        start: "top 85%",
-      },
+        const getScrollDistance = () =>
+          Math.max(track.scrollWidth - scroller.clientWidth, 0);
+
+        const snapPoints =
+          projects.length <= 1
+            ? [0]
+            : projects.map((_, i) => i / (projects.length - 1));
+
+        const tween = gsap.to(track, {
+          x: () => -getScrollDistance(),
+          ease: "none",
+          scrollTrigger: {
+            id: "work-gallery",
+            trigger: section,
+            start: "top top",
+            end: () => `+=${Math.max(getScrollDistance(), 1)}`,
+            pin: pin,
+            pinSpacing: true,
+            scrub: 0.8,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+            snap: {
+              snapTo: (value) => gsap.utils.snap(snapPoints, value),
+              duration: { min: 0.15, max: 0.45 },
+              ease: "power1.inOut",
+            },
+            onUpdate: (self) => {
+              const index = Math.round(self.progress * (projects.length - 1));
+              setActiveIndex(index);
+            },
+          },
+        });
+
+        const trigger = tween.scrollTrigger;
+        scrollTriggerRef.current = trigger ?? null;
+
+        // Sync transform + counter to the current scroll position after layout.
+        ScrollTrigger.refresh();
+        trigger?.update();
+        if (trigger) {
+          tween.progress(trigger.progress);
+          setActiveIndex(
+            Math.round(trigger.progress * (projects.length - 1))
+          );
+        }
+
+        return () => {
+          scrollTriggerRef.current = null;
+          tween.scrollTrigger?.kill();
+          gsap.set(track, { clearProps: "transform" });
+        };
+      });
     });
 
     const onResize = () => ScrollTrigger.refresh();
     window.addEventListener("resize", onResize);
 
     return () => {
+      cancelled = true;
       mm.revert();
+      ctx.revert();
       window.removeEventListener("resize", onResize);
     };
   }, []);
@@ -168,10 +187,10 @@ export function WorkGallery() {
             </h2>
           </div>
           <p className="section-aside hidden max-w-xs text-right text-sm leading-relaxed text-muted md:block">
-            Scroll to snap each project into view, then open the case study.
+            Selected projects from recent client and product work.
           </p>
           <p className="section-aside mt-3 text-sm leading-relaxed text-muted md:hidden">
-            Swipe to browse projects. Tap open to view a case.
+            Swipe to browse. Tap open for details.
           </p>
         </div>
 

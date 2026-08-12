@@ -33,7 +33,7 @@ export function ExperienceIndex() {
     >
       <p className="label-mono text-muted">04 / Experience</p>
       <h2 className="display-serif section-title mt-3 font-medium sm:mt-4">
-        Where I&apos;ve worked
+        Professional experience
       </h2>
 
       <div className="mt-8 border-t border-line sm:mt-10">

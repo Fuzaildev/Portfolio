@@ -30,12 +30,12 @@ export function ContactSection() {
       <p className="contact-block label-mono text-muted">05 / Contact</p>
 
       <h2 className="contact-block display-serif contact-headline mt-3 font-medium sm:mt-4">
-        Open for the right project.
+        Open to new opportunities.
       </h2>
 
       <p className="contact-block mt-5 max-w-xl text-sm leading-relaxed text-muted sm:mt-6 sm:text-base md:text-lg">
-        If you&apos;re building something that needs strong design, solid engineering,
-        or both — reach out on socials. I reply to every thoughtful message.
+        If you need someone who can own features across the stack, send a
+        message below. I read every inquiry.
       </p>
 
       {/* <a
@@ -47,10 +47,6 @@ export function ContactSection() {
           ↗
         </span>
       </a> */}
-
-      <p className="contact-block contact-email mt-8 text-sm text-muted sm:mt-10 sm:text-base">
-        Reach out on socials for work inquiries.
-      </p>
 
       <SocialLinks className="contact-block contact-social mt-8 flex flex-wrap gap-2 sm:mt-10 sm:gap-3" />
     </section>
