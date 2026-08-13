@@ -1,16 +1,15 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flip } from "gsap/Flip";
 
 let registered = false;
 
 export function registerGsapPlugins() {
   if (typeof window === "undefined" || registered) return;
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, Flip);
   registered = true;
 }
 
-// Register as soon as this module loads on the client so child effects
-// can use ScrollTrigger before the parent SmoothScrollProvider mounts.
 if (typeof window !== "undefined") {
   registerGsapPlugins();
 }
@@ -30,4 +29,4 @@ export function whenLayoutReady(): Promise<void> {
   );
 }
 
-export { gsap, ScrollTrigger };
+export { gsap, ScrollTrigger, Flip };

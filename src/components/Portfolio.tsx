@@ -18,9 +18,9 @@ export function Portfolio() {
           <AboutSection />
           <WorkGallery />
           <ExperienceIndex />
-          <ContactSection />
         </main>
       </div>
+      <ContactSection />
     </SmoothScrollProvider>
   );
 }

@@ -1,29 +1,51 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { roles } from "@/data/portfolio";
+import { prefersReducedMotion } from "@/lib/motion";
 
 export function ExperienceIndex() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".exp-row", {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 78%",
-        },
-      });
-    }, sectionRef);
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      if (!section || prefersReducedMotion()) return;
 
-    return () => ctx.revert();
-  }, []);
+      const progress = section.querySelector(".exp-timeline-progress");
+      const items = gsap.utils.toArray<HTMLElement>(".exp-item");
+
+      if (progress) {
+        gsap.set(progress, { scaleY: 0, transformOrigin: "top center" });
+        gsap.to(progress, {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".exp-list",
+            start: "top 70%",
+            end: "bottom 35%",
+            scrub: 0.35,
+          },
+        });
+      }
+
+      items.forEach((item, index) => {
+        if (index === 0) item.classList.add("is-active");
+
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 55%",
+          end: "bottom 55%",
+          onToggle: (self) => {
+            item.classList.toggle("is-active", self.isActive);
+          },
+        });
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
     <section
@@ -36,9 +58,19 @@ export function ExperienceIndex() {
         Professional experience
       </h2>
 
-      <div className="mt-8 border-t border-line sm:mt-10">
-        {roles.map((role) => (
-          <article key={role.id} className="exp-row exp-item">
+      <div className="exp-list mt-8 sm:mt-10">
+        <div className="exp-timeline" aria-hidden="true">
+          <span className="exp-timeline-line" />
+          <span className="exp-timeline-progress" />
+        </div>
+
+        {roles.map((role, index) => (
+          <article
+            key={role.id}
+            className={`exp-item${index === 0 ? " is-active" : ""}`}
+          >
+            <div className="exp-dot" aria-hidden="true" />
+
             <div className="exp-meta">
               <p className="label-mono text-muted">{role.period}</p>
             </div>
@@ -48,9 +80,7 @@ export function ExperienceIndex() {
                 <h3 className="display-serif exp-title font-medium">
                   {role.title}
                 </h3>
-                <p className="exp-company text-sm text-muted sm:text-base">
-                  {role.company}
-                </p>
+                <p className="exp-company">{role.company}</p>
               </div>
 
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:mt-4 sm:text-base">
