@@ -299,14 +299,15 @@ body {
   padding-bottom: max(3rem, env(safe-area-inset-bottom));
 }
 
-/* Work gallery: native swipe on mobile/tablet */
+/* Work gallery: one full card per snap (mobile swipe + desktop pin) */
+.work-headline {
+  margin-bottom: 1.5rem;
+}
+
 .work-scroller {
-  margin-inline: calc(var(--page-inline) * -1);
-  padding-inline: var(--page-inline);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--page-inline);
   scrollbar-width: none;
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
@@ -332,8 +333,11 @@ body {
 }
 
 .project-panel {
-  flex: 0 0 clamp(17rem, 88vw, 22rem);
-  scroll-snap-align: center;
+  box-sizing: border-box;
+  flex: 0 0 calc(100vw - (var(--page-inline) * 2));
+  width: calc(100vw - (var(--page-inline) * 2));
+  max-width: calc(100vw - (var(--page-inline) * 2));
+  scroll-snap-align: start;
   scroll-snap-stop: always;
   padding: clamp(1rem, 3vw, 1.5rem);
   display: flex;
@@ -523,10 +527,6 @@ body {
     max-width: 16rem;
     text-align: right;
   }
-
-  .project-panel {
-    flex-basis: clamp(18rem, 86vw, 24rem);
-  }
 }
 
 @media (min-width: 768px) {
@@ -565,10 +565,6 @@ body {
     align-items: baseline;
     justify-content: space-between;
     gap: 1rem;
-  }
-
-  .project-panel {
-    flex-basis: min(86vw, 28rem);
   }
 }
 
@@ -637,19 +633,42 @@ body {
     padding-bottom: clamp(3rem, 6vw, 5rem);
   }
 
+  #work.section-block {
+    padding-block: 0;
+  }
+
+  .work-pin {
+    box-sizing: border-box;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding-block: clamp(1.25rem, 3vh, 2.5rem);
+  }
+
+  .work-headline {
+    flex-shrink: 0;
+    margin-bottom: clamp(0.75rem, 1.8vh, 1.25rem);
+  }
+
+  .work-controls {
+    flex-shrink: 0;
+    margin-bottom: 0.75rem;
+  }
+
   .work-scroller {
-    margin-inline: 0;
-    padding-inline: 0;
+    flex: 0 0 auto;
     overflow: hidden;
     scroll-snap-type: none;
   }
 
-  /* Definite widths — % basis fails when .work-track is width: max-content */
+  .work-track {
+    padding-bottom: 0;
+  }
+
   .project-panel {
-    flex: 0 0 min(100%, 35rem);
-    width: min(100%, 35rem);
-    max-width: none;
-    min-height: auto;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 35rem;
   }
 
   .project-preview {
@@ -660,11 +679,6 @@ body {
 @media (min-width: 1280px) {
   .folio-grid {
     grid-template-columns: minmax(20rem, 34%) minmax(0, 1fr);
-  }
-
-  .project-panel {
-    flex: 0 0 min(38vw, 35rem);
-    width: min(38vw, 35rem);
   }
 }
 

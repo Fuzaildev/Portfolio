@@ -41,20 +41,46 @@ export function WorkGallery() {
       mm.add("(min-width: 1024px)", () => {
         gsap.set(track, { x: 0 });
 
-        const getScrollDistance = () =>
-          Math.max(track.scrollWidth - scroller.clientWidth, 0);
+        const panels = Array.from(
+          track.querySelectorAll<HTMLElement>(".project-panel")
+        );
+
+        const syncPanelSize = () => {
+          const available = Math.round(scroller.clientWidth);
+          const width = Math.min(available, 35 * 16);
+          const gutter = Math.max(0, Math.round((available - width) / 2));
+
+          track.style.paddingInline = `${gutter}px`;
+
+          panels.forEach((panel) => {
+            panel.style.flex = `0 0 ${width}px`;
+            panel.style.width = `${width}px`;
+            panel.style.maxWidth = `${width}px`;
+            panel.style.height = "";
+          });
+        };
+
+        const getScrollDistance = () => {
+          if (panels.length < 2) return 0;
+          return Math.max(
+            panels[panels.length - 1].offsetLeft - panels[0].offsetLeft,
+            0
+          );
+        };
 
         const snapPoints =
           projects.length <= 1
             ? [0]
             : projects.map((_, i) => i / (projects.length - 1));
 
+        syncPanelSize();
+
         const tween = gsap.to(track, {
           x: () => -getScrollDistance(),
           ease: "none",
           scrollTrigger: {
             id: "work-gallery",
-            trigger: section,
+            trigger: pin,
             start: "top top",
             end: () => `+=${Math.max(getScrollDistance(), 1)}`,
             pin: pin,
@@ -67,6 +93,7 @@ export function WorkGallery() {
               duration: { min: 0.15, max: 0.45 },
               ease: "power1.inOut",
             },
+            onRefreshInit: syncPanelSize,
             onUpdate: (self) => {
               const index = Math.round(self.progress * (projects.length - 1));
               setActiveIndex(index);
@@ -77,7 +104,6 @@ export function WorkGallery() {
         const trigger = tween.scrollTrigger;
         scrollTriggerRef.current = trigger ?? null;
 
-        // Sync transform + counter to the current scroll position after layout.
         ScrollTrigger.refresh();
         trigger?.update();
         if (trigger) {
@@ -91,6 +117,13 @@ export function WorkGallery() {
           scrollTriggerRef.current = null;
           tween.scrollTrigger?.kill();
           gsap.set(track, { clearProps: "transform" });
+          track.style.paddingInline = "";
+          panels.forEach((panel) => {
+            panel.style.flex = "";
+            panel.style.width = "";
+            panel.style.maxWidth = "";
+            panel.style.height = "";
+          });
         };
       });
     });
@@ -162,11 +195,8 @@ export function WorkGallery() {
     const panel = scroller?.querySelectorAll<HTMLElement>(".project-panel")[index];
     if (!panel || !scroller) return;
 
-    const offset =
-      panel.offsetLeft - (scroller.clientWidth - panel.clientWidth) / 2;
-
     scroller.scrollTo({
-      left: Math.max(0, offset),
+      left: panel.offsetLeft,
       behavior: "smooth",
     });
     setActiveIndex(index);
@@ -178,8 +208,8 @@ export function WorkGallery() {
       ref={sectionRef}
       className="section-block border-b border-line"
     >
-      <div ref={pinRef}>
-        <div className="work-headline section-head mb-6 sm:mb-8 md:mb-10">
+      <div ref={pinRef} className="work-pin">
+        <div className="work-headline section-head">
           <div>
             <p className="label-mono text-muted">03 / Selected Work</p>
             <h2 className="display-serif section-title mt-3 font-medium sm:mt-4">
