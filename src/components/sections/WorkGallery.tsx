@@ -35,7 +35,7 @@ export function WorkGallery() {
       if (cancelled) return;
 
       mm.add("(min-width: 1024px)", () => {
-        if (reduced) return;
+        if (reduced || projects.length < 2) return;
 
         const panels = Array.from(
           track.querySelectorAll<HTMLElement>(".project-panel")
@@ -205,10 +205,10 @@ export function WorkGallery() {
             </h2>
           </div>
           <p className="section-aside hidden max-w-xs text-right text-sm leading-relaxed text-muted md:block">
-            Scroll to move through the work. Open a cover for the case study.
+            Open a cover for the case study, or visit the live site.
           </p>
           <p className="section-aside mt-3 text-sm leading-relaxed text-muted md:hidden">
-            Swipe to browse. Tap a cover for the case study.
+            Tap a cover for the case study, or open the live site.
           </p>
         </div>
 
@@ -219,33 +219,41 @@ export function WorkGallery() {
               {String(projects.length).padStart(2, "0")}
             </span>
             <div className="work-progress" aria-hidden="true">
-              <span ref={progressRef} className="work-progress-bar" />
+              <span
+                ref={progressRef}
+                className="work-progress-bar"
+                style={
+                  projects.length < 2 ? { transform: "scaleX(1)" } : undefined
+                }
+              />
             </div>
           </div>
-          <div className="work-controls-nav">
-            <Magnetic strength={0.45} radius={64}>
-              <button
-                type="button"
-                className="work-nav-btn"
-                aria-label="Previous project"
-                disabled={activeIndex === 0}
-                onClick={() => scrollToProject(activeIndex - 1)}
-              >
-                ←
-              </button>
-            </Magnetic>
-            <Magnetic strength={0.45} radius={64}>
-              <button
-                type="button"
-                className="work-nav-btn"
-                aria-label="Next project"
-                disabled={activeIndex === projects.length - 1}
-                onClick={() => scrollToProject(activeIndex + 1)}
-              >
-                →
-              </button>
-            </Magnetic>
-          </div>
+          {projects.length > 1 ? (
+            <div className="work-controls-nav">
+              <Magnetic strength={0.45} radius={64}>
+                <button
+                  type="button"
+                  className="work-nav-btn"
+                  aria-label="Previous project"
+                  disabled={activeIndex === 0}
+                  onClick={() => scrollToProject(activeIndex - 1)}
+                >
+                  ←
+                </button>
+              </Magnetic>
+              <Magnetic strength={0.45} radius={64}>
+                <button
+                  type="button"
+                  className="work-nav-btn"
+                  aria-label="Next project"
+                  disabled={activeIndex === projects.length - 1}
+                  onClick={() => scrollToProject(activeIndex + 1)}
+                >
+                  →
+                </button>
+              </Magnetic>
+            </div>
+          ) : null}
         </div>
 
         <div ref={scrollerRef} className="work-scroller" data-lenis-prevent>
@@ -286,7 +294,11 @@ function ProjectPanel({ project }: { project: Project }) {
           data-flip-id={`project-${project.slug}`}
           className="project-preview"
         >
-          <ProjectCover variant={project.cover} title={project.title} />
+          <ProjectCover
+            variant={project.cover}
+            title={project.title}
+            image={project.coverImage}
+          />
           <div className="project-preview-meta">
             <span className="display-serif project-title font-medium">
               {project.title}
@@ -310,13 +322,25 @@ function ProjectPanel({ project }: { project: Project }) {
           ))}
         </div>
 
-        <Link
-          href={`/work/${project.slug}`}
-          className="project-footer-link label-mono"
-          onClick={onOpen}
-        >
-          Read case study ↗
-        </Link>
+        <div className="project-footer-links">
+          <Link
+            href={`/work/${project.slug}`}
+            className="project-footer-link label-mono"
+            onClick={onOpen}
+          >
+            Read case study ↗
+          </Link>
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              className="project-footer-link label-mono"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit live site ↗
+            </a>
+          ) : null}
+        </div>
       </div>
     </article>
   );

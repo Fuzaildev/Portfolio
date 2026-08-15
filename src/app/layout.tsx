@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { jsonLd, seo } from "@/lib/seo";
 import { site } from "@/data/portfolio";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(seo.url),
@@ -97,7 +99,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         className="min-h-full bg-paper text-ink"
         suppressHydrationWarning
       >
-        {children}
+        <SmoothScrollProvider>
+          {children}
+          <SiteFooter />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

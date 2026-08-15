@@ -37,7 +37,7 @@ export function ContactSection() {
   );
 
   return (
-    <section id="contact" ref={sectionRef} className="contact-invert">
+    <footer id="contact" ref={sectionRef} className="contact-invert">
       <div className="contact-invert-inner">
         <p className="label-mono contact-muted">05 / Contact</p>
 
@@ -60,6 +60,6 @@ export function ContactSection() {
 
         <SocialLinks className="contact-social mt-8 flex flex-wrap sm:mt-10" />
       </div>
-    </section>
+    </footer>
   );
 }

@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap";
+import { gsap, whenLayoutReady } from "@/lib/gsap";
 import { SocialLinks } from "@/components/SocialLinks";
 import { MobileNavMenu } from "@/components/layout/MobileNavMenu";
 import { useLenis } from "@/components/providers/SmoothScrollProvider";
@@ -17,9 +19,15 @@ export function IdentityRail() {
   const indicatorRef = useRef<HTMLSpanElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
   const compactRef = useRef(false);
-  const [active, setActive] = useState("intro");
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHome = pathname === "/";
+  const [active, setActive] = useState(
+    pathname.startsWith("/work") ? "work" : "intro"
+  );
   const [compact, setCompact] = useState(false);
   const lenis = useLenis();
+  const NameTag = isHome ? "h1" : "p";
 
   useGSAP(
     () => {
@@ -46,14 +54,27 @@ export function IdentityRail() {
   );
 
   useEffect(() => {
+    if (pathname.startsWith("/work")) setActive("work");
+    else if (pathname === "/") setActive("intro");
+  }, [pathname]);
+
+  useEffect(() => {
     const sections = indexNav
       .map((item) => document.getElementById(item.id))
       .filter(Boolean) as HTMLElement[];
 
+    if (!sections.length) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+            return;
+          }
+          if (pathname.startsWith("/work") && entry.target.id === "contact") {
+            setActive("work");
+          }
         });
       },
       {
@@ -64,7 +85,7 @@ export function IdentityRail() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const nav = railRef.current?.querySelector(".folio-rail-nav");
@@ -124,11 +145,38 @@ export function IdentityRail() {
     };
   }, [lenis]);
 
-  const scrollTo = (id: string) => {
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
+
+    let cancelled = false;
+    whenLayoutReady().then(() => {
+      if (cancelled) return;
+      const el = document.getElementById(hash);
+      if (!el) return;
+      if (lenis) lenis.scrollTo(el, { offset: 0 });
+      else el.scrollIntoView({ behavior: "smooth" });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname, lenis]);
+
+  const scrollToId = (id: string) => {
     const el = document.getElementById(id);
-    if (!el) return;
+    if (!el) return false;
     if (lenis) lenis.scrollTo(el, { offset: 0 });
     else el.scrollIntoView({ behavior: "smooth" });
+    return true;
+  };
+
+  const onSectionClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    if (scrollToId(id)) event.preventDefault();
   };
 
   return (
@@ -139,17 +187,17 @@ export function IdentityRail() {
             <p className="rail-boot folio-location label-mono text-muted">
               {site.location}
             </p>
-            <h1 className="rail-boot display-serif folio-name font-semibold">
-              <button
-                type="button"
+            <NameTag className="rail-boot display-serif folio-name font-semibold">
+              <Link
+                href="/#intro"
                 className="folio-name-first"
-                onClick={() => scrollTo("intro")}
-                aria-label={`${site.name}, back to top`}
+                onClick={(event) => onSectionClick(event, "intro")}
+                aria-label={`${site.name}, home`}
               >
                 {firstName}
-              </button>
+              </Link>
               <span className="folio-name-last">{lastName}</span>
-            </h1>
+            </NameTag>
             <p className="rail-boot folio-role max-w-sm text-sm leading-relaxed text-muted md:text-[0.95rem]">
               {site.role}
             </p>
@@ -158,7 +206,12 @@ export function IdentityRail() {
             </p>
           </div>
 
-          <MobileNavMenu active={active} onNavigate={scrollTo} />
+          <MobileNavMenu
+            active={active}
+            onNavigate={(id) => {
+              if (!scrollToId(id)) router.push(`/#${id}`);
+            }}
+          />
         </div>
 
         <nav aria-label="Section index" className="folio-rail-nav hidden lg:block">
@@ -167,17 +220,17 @@ export function IdentityRail() {
           </span>
           <span ref={indicatorRef} className="rail-indicator" aria-hidden="true" />
           {indexNav.map((item) => (
-            <button
+            <Link
               key={item.id}
-              type="button"
-              onClick={() => scrollTo(item.id)}
+              href={`/#${item.id}`}
+              onClick={(event) => onSectionClick(event, item.id)}
               className={`rail-link w-full text-left ${
                 active === item.id ? "is-active" : ""
               }`}
             >
               <span className="label-mono">{item.num}</span>
               <span className="text-sm">{item.label}</span>
-            </button>
+            </Link>
           ))}
         </nav>
       </div>
