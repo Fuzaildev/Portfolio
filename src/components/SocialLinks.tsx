@@ -1,7 +1,6 @@
 "use client";
 
 import { site } from "@/data/portfolio";
-import { Magnetic } from "@/components/motion/Magnetic";
 
 type SocialKey = keyof typeof site.social;
 
@@ -46,14 +45,9 @@ function SocialIcon({ name }: { name: SocialKey }) {
 type SocialLinksProps = {
   className?: string;
   limit?: number;
-  magnetic?: boolean;
 };
 
-export function SocialLinks({
-  className = "",
-  limit,
-  magnetic = false,
-}: SocialLinksProps) {
+export function SocialLinks({ className = "", limit }: SocialLinksProps) {
   const links = Object.entries(site.social).slice(0, limit) as [
     SocialKey,
     string,
@@ -61,27 +55,18 @@ export function SocialLinks({
 
   return (
     <div className={className}>
-      {links.map(([key, href]) => {
-        const link = (
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={socialLabels[key]}
-            className="social-link inline-flex min-h-11 min-w-11 items-center justify-center"
-          >
-            <SocialIcon name={key} />
-          </a>
-        );
-
-        return magnetic ? (
-          <Magnetic key={key} strength={0.4} radius={72}>
-            {link}
-          </Magnetic>
-        ) : (
-          <span key={key}>{link}</span>
-        );
-      })}
+      {links.map(([key, href]) => (
+        <a
+          key={key}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={socialLabels[key]}
+          className="social-link inline-flex min-h-11 min-w-11 items-center justify-center"
+        >
+          <SocialIcon name={key} />
+        </a>
+      ))}
     </div>
   );
 }

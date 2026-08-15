@@ -54,7 +54,7 @@ export const aboutQuote = [
   "and fast for end users.",
 ];
 
-export type ProjectCoverVariant = "precise";
+export type ProjectCoverVariant = "precise" | "mocdoc";
 
 export type ProjectModule = {
   name: string;
@@ -88,6 +88,9 @@ export type Project = {
   modules?: ProjectModule[];
   tools?: string[];
   liveUrl?: string;
+  repoUrl?: string;
+  modulesHeading?: string;
+  stripLabel?: string;
 };
 
 export const projects: Project[] = [
@@ -148,6 +151,65 @@ export const projects: Project[] = [
       "Frontend for an ERPNext SaaS product site covering five GCC markets.",
       "Shared layout for finance, CRM, HR, healthcare, and education modules.",
       "Entry points to sales invoices, quotations, and purchase orders.",
+    ],
+    modulesHeading: "Five modules, one system.",
+  },
+  {
+    id: "02",
+    slug: "mocdoc",
+    title: "MocDoc",
+    type: "Full Stack",
+    year: "2025",
+    description:
+      "Healthcare management system for hospitals, clinics, labs, and pharmacies — with separate portals for doctors, staff, and patients.",
+    stack: ["Flask", "Python", "MySQL", "HTML/CSS", "JavaScript"],
+    cover: "mocdoc",
+    coverImage: "/work/mocdoc.webp",
+    role: "Full stack engineer",
+    repoUrl: "https://github.com/Fuzaildev/Mocdoc",
+    overview:
+      "MocDoc is a clinic operations product: a public healthcare site plus authenticated portals. I built the Flask application, MySQL patient model, and the HTML templates that take doctors, staff, and patients from registration through appointments, records, prescriptions, and lab tests.",
+    challenge:
+      "Three user types needed different dashboards without three separate apps. Patient data had to persist in MySQL, sessions had to survive the jump from signup to booking, and the marketing pages still had to explain hospital, clinic, laboratory, and pharmacy products clearly.",
+    outcome:
+      "One Flask codebase serves the marketing site and the three portals. Patients can register, sign in, and book; doctors and staff get appointment, records, and lab workflows. The product story and the operational UI live in the same system.",
+    quote: "Hospital, clinic, lab, and pharmacy. One Flask stack.",
+    stats: [
+      { value: "03", label: "User portals" },
+      { value: "04", label: "Care products" },
+      { value: "20+", label: "App screens" },
+      { value: "01", label: "MySQL model" },
+    ],
+    markets: ["Doctors", "Clinic staff", "Patients"],
+    stripLabel: "Built for",
+    modulesHeading: "Four products, three portals.",
+    modules: [
+      {
+        name: "Hospital",
+        detail:
+          "Registration-to-discharge workflows for clinical and administrative staff.",
+      },
+      {
+        name: "Clinic",
+        detail:
+          "Appointments, case sheets, patient dashboards, and billing in one clinic view.",
+      },
+      {
+        name: "Laboratory",
+        detail:
+          "Sample lifecycle from billing through test execution and report dispatch.",
+      },
+      {
+        name: "Pharmacy",
+        detail:
+          "Prescription handling with inventory tracking for in-house pharmacies.",
+      },
+    ],
+    tools: ["Appointments", "Prescriptions", "Lab tests", "Medical records"],
+    highlights: [
+      "Flask + MySQL patient registration, login, and sessioned dashboards.",
+      "Separate doctor, staff, and patient portals for day-to-day clinic work.",
+      "Marketing pages for hospital, clinic, laboratory, and pharmacy products.",
     ],
   },
 ];

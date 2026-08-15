@@ -239,7 +239,7 @@ export function IdentityRail() {
         <p className="rail-boot folio-email label-mono text-muted">
           Open to new work
         </p>
-        <SocialLinks magnetic className="folio-social mt-3 flex gap-2" />
+        <SocialLinks className="folio-social mt-3 flex gap-2" />
       </div>
     </aside>
   );

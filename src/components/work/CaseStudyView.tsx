@@ -6,22 +6,18 @@ import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger, whenLayoutReady } from "@/lib/gsap";
 import { consumeProjectFlip } from "@/lib/flip-store";
 import { prefersReducedMotion } from "@/lib/motion";
-import { Magnetic } from "@/components/motion/Magnetic";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectCover } from "@/components/work/ProjectCover";
-import { getNextProject, site, type Project } from "@/data/portfolio";
-
-function liveHost(url: string) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-}
+import { getNextProject, type Project } from "@/data/portfolio";
 
 export function CaseStudyView({ project }: { project: Project }) {
   const pageRef = useRef<HTMLDivElement>(null);
   const coverRef = useRef<HTMLDivElement>(null);
   const next = getNextProject(project.slug);
+  const primaryUrl = project.liveUrl ?? project.repoUrl;
+  const primaryLabel = project.liveUrl
+    ? "Visit live site ↗"
+    : "View on GitHub ↗";
   const titleWords = project.title.split(" ").filter(Boolean);
   const chapters = [
     { id: "01", title: "Overview", body: project.overview },
@@ -100,17 +96,6 @@ export function CaseStudyView({ project }: { project: Project }) {
         }
       );
 
-      gsap.to(".case-nav-progress", {
-        scaleX: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: pageRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.2,
-        },
-      });
-
       whenLayoutReady().then(() => ScrollTrigger.refresh());
     },
     { scope: pageRef, dependencies: [project.slug] }
@@ -118,28 +103,15 @@ export function CaseStudyView({ project }: { project: Project }) {
 
   return (
     <article ref={pageRef} className="case-study">
-      <header className="case-nav">
-        <Link href="/#work" className="case-back label-mono">
-          ← Selected work
-        </Link>
-        <p className="label-mono text-muted case-nav-name">{site.name}</p>
-        {project.liveUrl ? (
-          <a
-            href={project.liveUrl}
-            className="case-nav-live label-mono"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {liveHost(project.liveUrl)} ↗
-          </a>
-        ) : null}
-        <span className="case-nav-progress" aria-hidden="true" />
-      </header>
+      <PageHeader />
 
       <section className="case-hero">
         <div className="case-hero-kicker">
           <p className="label-mono text-muted">
-            {project.id} / Selected work
+            {project.id} /{" "}
+            <Link href="/#work" className="case-back">
+              Selected work
+            </Link>
           </p>
           <p className="label-mono text-muted">
             {project.year} · {project.type}
@@ -156,17 +128,15 @@ export function CaseStudyView({ project }: { project: Project }) {
 
         <div className="case-hero-copy">
           <p className="case-lede">{project.description}</p>
-          {project.liveUrl ? (
-            <Magnetic className="case-hero-cta" strength={0.18} radius={90}>
-              <a
-                href={project.liveUrl}
-                className="case-live-btn label-mono"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Visit live site ↗
-              </a>
-            </Magnetic>
+          {primaryUrl ? (
+            <a
+              href={primaryUrl}
+              className="case-live-btn label-mono case-hero-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {primaryLabel}
+            </a>
           ) : null}
         </div>
       </section>
@@ -248,7 +218,7 @@ export function CaseStudyView({ project }: { project: Project }) {
           <div className="case-chapter-head case-reveal">
             <p className="label-mono text-muted">04 / Platform</p>
             <h2 className="display-serif case-section-title font-medium">
-              Five modules, one system.
+              {project.modulesHeading ?? "The platform."}
             </h2>
           </div>
           <div className="case-modules">
@@ -296,7 +266,7 @@ export function CaseStudyView({ project }: { project: Project }) {
       </section>
 
       {project.markets?.length ? (
-        <section className="case-markets" aria-label="Markets served">
+        <section className="case-markets" aria-label={project.stripLabel ?? "Markets served"}>
           {project.markets.map((market) => (
             <span key={market} className="display-serif case-market">
               {market}
@@ -322,11 +292,9 @@ export function CaseStudyView({ project }: { project: Project }) {
       {next.slug !== project.slug ? (
         <div className="case-next">
           <p className="label-mono text-muted">Next project</p>
-          <Magnetic className="mt-3 inline-flex" strength={0.22} radius={100}>
-            <Link href={`/work/${next.slug}`} className="display-serif case-next-link">
-              {next.title} →
-            </Link>
-          </Magnetic>
+          <Link href={`/work/${next.slug}`} className="display-serif case-next-link">
+            {next.title} →
+          </Link>
         </div>
       ) : null}
     </article>

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { gsap, ScrollTrigger, whenLayoutReady } from "@/lib/gsap";
 import { captureProjectFlip } from "@/lib/flip-store";
 import { prefersReducedMotion } from "@/lib/motion";
-import { Magnetic } from "@/components/motion/Magnetic";
 import { ProjectCover } from "@/components/work/ProjectCover";
 import { useLenis } from "@/components/providers/SmoothScrollProvider";
 import { projects, type Project } from "@/data/portfolio";
@@ -205,10 +204,10 @@ export function WorkGallery() {
             </h2>
           </div>
           <p className="section-aside hidden max-w-xs text-right text-sm leading-relaxed text-muted md:block">
-            Open a cover for the case study, or visit the live site.
+            Open a cover for the case study.
           </p>
           <p className="section-aside mt-3 text-sm leading-relaxed text-muted md:hidden">
-            Tap a cover for the case study, or open the live site.
+            Swipe to browse. Tap a cover for the case study.
           </p>
         </div>
 
@@ -230,28 +229,24 @@ export function WorkGallery() {
           </div>
           {projects.length > 1 ? (
             <div className="work-controls-nav">
-              <Magnetic strength={0.45} radius={64}>
-                <button
-                  type="button"
-                  className="work-nav-btn"
-                  aria-label="Previous project"
-                  disabled={activeIndex === 0}
-                  onClick={() => scrollToProject(activeIndex - 1)}
-                >
-                  ←
-                </button>
-              </Magnetic>
-              <Magnetic strength={0.45} radius={64}>
-                <button
-                  type="button"
-                  className="work-nav-btn"
-                  aria-label="Next project"
-                  disabled={activeIndex === projects.length - 1}
-                  onClick={() => scrollToProject(activeIndex + 1)}
-                >
-                  →
-                </button>
-              </Magnetic>
+              <button
+                type="button"
+                className="work-nav-btn"
+                aria-label="Previous project"
+                disabled={activeIndex === 0}
+                onClick={() => scrollToProject(activeIndex - 1)}
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                className="work-nav-btn"
+                aria-label="Next project"
+                disabled={activeIndex === projects.length - 1}
+                onClick={() => scrollToProject(activeIndex + 1)}
+              >
+                →
+              </button>
             </div>
           ) : null}
         </div>
@@ -338,6 +333,16 @@ function ProjectPanel({ project }: { project: Project }) {
               rel="noopener noreferrer"
             >
               Visit live site ↗
+            </a>
+          ) : null}
+          {project.repoUrl ? (
+            <a
+              href={project.repoUrl}
+              className="project-footer-link label-mono"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub ↗
             </a>
           ) : null}
         </div>
