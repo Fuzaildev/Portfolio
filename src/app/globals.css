@@ -45,7 +45,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
-  /* Avoid overflow-x on body — it breaks ScrollTrigger pin (work gallery) */
+  /* Avoid overflow-x on body. It breaks ScrollTrigger pin (work gallery). */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -605,6 +605,12 @@ html.folio-nav-compact .folio-hamburger {
   padding: clamp(0.75rem, 3vw, 1.5rem);
 }
 
+.project-cover--bleed.project-cover--image .project-cover-art {
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
+}
+
 .project-preview-meta {
   position: absolute;
   inset: auto 0 0;
@@ -618,20 +624,6 @@ html.folio-nav-compact .folio-hamburger {
     transparent,
     color-mix(in srgb, var(--paper) 88%, transparent)
   );
-}
-
-.project-open-btn {
-  border: 1px solid var(--ink);
-  background: var(--surface);
-  padding: 0.5rem 0.75rem;
-  color: var(--ink);
-  white-space: nowrap;
-}
-
-.project-preview-link:hover .project-open-btn,
-.project-preview-link:focus-visible .project-open-btn {
-  background: var(--ink);
-  color: var(--paper);
 }
 
 .project-panel-body {
@@ -1070,8 +1062,9 @@ html.folio-nav-compact .folio-hamburger {
 
 .case-hero-kicker {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.5rem 1rem;
 }
 
 .case-title {
@@ -1156,6 +1149,14 @@ html.folio-nav-compact .folio-hamburger {
 
 .case-stage .project-cover--image .project-cover-art {
   padding: clamp(1rem, 4vw, 2rem);
+}
+
+.case-stage .project-cover--bleed.project-cover--image .project-cover-art {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  object-fit: cover;
+  object-position: center;
 }
 
 .case-stage-stats {
@@ -1428,6 +1429,14 @@ html.folio-nav-compact .folio-hamburger {
     padding: 2rem 2rem 2rem 0;
     object-fit: contain;
     object-position: center right;
+  }
+
+  .case-stage .project-cover--bleed.project-cover--image .project-cover-art {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    object-fit: cover;
+    object-position: center;
   }
 
   .case-stage-stats {

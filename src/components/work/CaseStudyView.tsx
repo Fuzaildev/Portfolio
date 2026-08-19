@@ -10,6 +10,21 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectCover } from "@/components/work/ProjectCover";
 import { getNextProject, type Project } from "@/data/portfolio";
 
+function titleLines(title: string) {
+  const words = title.split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+
+  for (const word of words) {
+    if (word === "&" && lines.length > 0) {
+      lines[lines.length - 1] += ` ${word}`;
+    } else {
+      lines.push(word);
+    }
+  }
+
+  return lines;
+}
+
 export function CaseStudyView({ project }: { project: Project }) {
   const pageRef = useRef<HTMLDivElement>(null);
   const coverRef = useRef<HTMLDivElement>(null);
@@ -18,7 +33,7 @@ export function CaseStudyView({ project }: { project: Project }) {
   const primaryLabel = project.liveUrl
     ? "Visit live site ↗"
     : "View on GitHub ↗";
-  const titleWords = project.title.split(" ").filter(Boolean);
+  const titleWords = titleLines(project.title);
   const chapters = [
     { id: "01", title: "Overview", body: project.overview },
     { id: "02", title: "Challenge", body: project.challenge },
@@ -150,6 +165,7 @@ export function CaseStudyView({ project }: { project: Project }) {
           variant={project.cover}
           title={project.title}
           image={project.coverImage}
+          bleed={project.coverBleed}
         />
         {project.stats?.length ? (
           <dl className="case-stage-stats">

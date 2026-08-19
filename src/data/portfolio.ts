@@ -54,7 +54,7 @@ export const aboutQuote = [
   "and fast for end users.",
 ];
 
-export type ProjectCoverVariant = "precise" | "mocdoc";
+export type ProjectCoverVariant = "couch" | "precise" | "mocdoc";
 
 export type ProjectModule = {
   name: string;
@@ -76,6 +76,7 @@ export type Project = {
   stack: string[];
   cover: ProjectCoverVariant;
   coverImage?: string;
+  coverBleed?: boolean;
   role: string;
   client?: string;
   overview: string;
@@ -96,12 +97,72 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: "01",
+    slug: "couch-and-closet",
+    title: "Couch & Closet",
+    type: "Full Stack",
+    year: "2026",
+    description:
+      "Luxury interior studio in Bengaluru. Residential and commercial work, the team, and a clear path from first look to consultation.",
+    stack: ["Framer", "GSAP", "Lenis", "React"],
+    cover: "couch",
+    coverImage: "/work/couch-and-closet.jpg",
+    coverBleed: true,
+    role: "Full Stack Engineer",
+    client: "Kailune",
+    liveUrl: "https://couchandcloset.com/",
+    overview:
+      "Couch & Closet is a luxury interior design studio in Bengaluru. I built the public site: a full-bleed hero, studio team, residential and commercial work, a three-step process, client proof, a budget estimator, and a consultation booking path, positioned as a considered brand, not a generic interior brochure.",
+    challenge:
+      "The studio needed a site that feels as restrained as the rooms they design, while still carrying a large project gallery, team stories, testimonials, and a lead path. Motion and photography had to stay premium without slowing Core Web Vitals or burying the call to book.",
+    outcome:
+      "The live site opens on craft, then walks visitors through work, process, and proof before a budget and consultation close. Residential and commercial interiors sit in one filtered gallery, with a clear route from first look to a booked conversation.",
+    quote: "Space worth coming home to. Told as a studio, not a catalog.",
+    stats: [
+      { value: "10+", label: "Years in design" },
+      { value: "50+", label: "Projects shown" },
+      { value: "02", label: "Work types" },
+      { value: "01", label: "Booking path" },
+    ],
+    markets: ["Residential", "Commercial"],
+    stripLabel: "Designed for",
+    modulesHeading: "Studio, work, and a path to book.",
+    modules: [
+      {
+        name: "Studio",
+        detail:
+          "Hero, philosophy, and team: the people and the point of view behind the rooms.",
+      },
+      {
+        name: "Works",
+        detail:
+          "Filtered residential and commercial interiors with type, location, and area.",
+      },
+      {
+        name: "Process",
+        detail:
+          "Reach out, design, delivery: a three-step story from brief to handover.",
+      },
+      {
+        name: "Leads",
+        detail:
+          "Budget estimator and consultation booking so interest becomes a conversation.",
+      },
+    ],
+    tools: ["Work gallery", "Team", "Budget estimator", "Consultation"],
+    highlights: [
+      "Live site for Couch & Closet: studio story, work gallery, and consultation booking.",
+      "Residential and commercial work gallery with team, process, and testimonials.",
+      "Budget estimator and consultation path from first visit to a booked conversation.",
+    ],
+  },
+  {
+    id: "02",
     slug: "precise-erp",
     title: "Precise ERP",
     type: "Frontend Engineering",
     year: "2025",
     description:
-      "Product site for an AI-powered ERPNext SaaS platform serving GCC markets — finance, CRM, HR, healthcare, and education in one system.",
+      "Product site for an AI-powered ERPNext SaaS platform serving GCC markets: finance, CRM, HR, healthcare, and education in one system.",
     stack: ["Django", "JavaScript", "Bootstrap", "HTML/CSS"],
     cover: "precise",
     coverImage: "/work/precise-erp.png",
@@ -155,13 +216,13 @@ export const projects: Project[] = [
     modulesHeading: "Five modules, one system.",
   },
   {
-    id: "02",
+    id: "03",
     slug: "mocdoc",
     title: "MocDoc",
     type: "Full Stack",
     year: "2025",
     description:
-      "Healthcare management system for hospitals, clinics, labs, and pharmacies — with separate portals for doctors, staff, and patients.",
+      "Healthcare management system for hospitals, clinics, labs, and pharmacies, with separate portals for doctors, staff, and patients.",
     stack: ["Flask", "Python", "MySQL", "HTML/CSS", "JavaScript"],
     cover: "mocdoc",
     coverImage: "/work/mocdoc.webp",

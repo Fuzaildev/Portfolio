@@ -293,12 +293,12 @@ function ProjectPanel({ project }: { project: Project }) {
             variant={project.cover}
             title={project.title}
             image={project.coverImage}
+            bleed={project.coverBleed}
           />
           <div className="project-preview-meta">
             <span className="display-serif project-title font-medium">
               {project.title}
             </span>
-            <span className="project-open-btn label-mono">View case study</span>
           </div>
         </div>
       </Link>

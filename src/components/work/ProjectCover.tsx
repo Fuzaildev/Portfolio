@@ -4,6 +4,7 @@ type ProjectCoverProps = {
   variant: ProjectCoverVariant;
   title: string;
   image?: string;
+  bleed?: boolean;
   className?: string;
 };
 
@@ -11,13 +12,14 @@ export function ProjectCover({
   variant,
   title,
   image,
+  bleed = false,
   className = "",
 }: ProjectCoverProps) {
   return (
     <div
       className={`project-cover project-cover--${variant}${
         image ? " project-cover--image" : ""
-      } ${className}`}
+      }${bleed ? " project-cover--bleed" : ""} ${className}`}
     >
       {image ? (
         <img src={image} alt={`${title} cover`} className="project-cover-art" />
@@ -29,6 +31,7 @@ export function ProjectCover({
             aria-hidden="true"
             className="project-cover-art"
           >
+            {variant === "couch" ? <CouchArt /> : null}
             {variant === "precise" ? <PreciseArt /> : null}
             {variant === "mocdoc" ? <MocdocArt /> : null}
           </svg>
@@ -36,6 +39,19 @@ export function ProjectCover({
         </>
       )}
     </div>
+  );
+}
+
+function CouchArt() {
+  return (
+    <g fill="none" stroke="currentColor" strokeWidth="0.7">
+      <rect x="18" y="18" width="124" height="64" opacity="0.22" />
+      <rect x="28" y="28" width="48" height="44" fill="currentColor" opacity="0.88" />
+      <rect x="86" y="28" width="46" height="18" opacity="0.4" />
+      <rect x="86" y="52" width="22" height="20" opacity="0.32" />
+      <rect x="110" y="52" width="22" height="20" opacity="0.2" />
+      <circle cx="52" cy="44" r="5" fill="currentColor" stroke="none" opacity="0.95" />
+    </g>
   );
 }
 
