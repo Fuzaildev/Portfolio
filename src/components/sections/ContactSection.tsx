@@ -10,7 +10,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 export function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contactHref = site.email
-    ? `mailto:${site.email}`
+    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(site.email)}`
     : site.social.linkedin;
   const contactLabel = site.email || "Message on LinkedIn";
 
@@ -50,7 +50,12 @@ export function ContactSection() {
           message. I read every inquiry.
         </p>
 
-        <a href={contactHref} className="contact-cta mt-8 sm:mt-10">
+        <a
+          href={contactHref}
+          className="contact-cta mt-8 sm:mt-10"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span className="contact-cta-label">{contactLabel}</span>
           <span className="contact-cta-icon" aria-hidden="true">
             <span className="contact-cta-arrow">↗</span>
