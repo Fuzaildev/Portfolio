@@ -1,14 +1,25 @@
 import { site } from "@/data/portfolio";
 
-type SocialKey = keyof typeof site.social;
+type ProfileKey = "github" | "linkedin";
 
-const socialLabels: Record<SocialKey, string> = {
-  github: "GitHub",
-  linkedin: "LinkedIn",
-  x: "X",
-};
+const profiles: {
+  key: ProfileKey;
+  label: string;
+  href: string;
+}[] = [
+  {
+    key: "github",
+    label: "GitHub",
+    href: site.social.github,
+  },
+  {
+    key: "linkedin",
+    label: "LinkedIn",
+    href: site.social.linkedin,
+  },
+];
 
-function SocialIcon({ name }: { name: SocialKey }) {
+function ProfileIcon({ name }: { name: ProfileKey }) {
   switch (name) {
     case "github":
       return (
@@ -28,43 +39,31 @@ function SocialIcon({ name }: { name: SocialKey }) {
           />
         </svg>
       );
-    case "x":
-      return (
-        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
-          <path
-            fill="currentColor"
-            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.291 19.54h2.036L6.486 3.24H4.298l13.312 17.453z"
-          />
-        </svg>
-      );
   }
 }
 
-type SocialLinksProps = {
+type ProfileLinksProps = {
   className?: string;
-  limit?: number;
 };
 
-export function SocialLinks({ className = "", limit }: SocialLinksProps) {
-  const links = Object.entries(site.social).slice(0, limit) as [
-    SocialKey,
-    string,
-  ][];
-
+export function ProfileLinks({ className = "" }: ProfileLinksProps) {
   return (
-    <div className={className}>
-      {links.map(([key, href]) => (
+    <nav
+      className={`profile-links ${className}`.trim()}
+      aria-label="GitHub and LinkedIn"
+    >
+      {profiles.map((profile) => (
         <a
-          key={key}
-          href={href}
+          key={profile.key}
+          href={profile.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={socialLabels[key]}
-          className="social-link inline-flex min-h-11 min-w-11 items-center justify-center"
+          aria-label={profile.label}
+          className="profile-link"
         >
-          <SocialIcon name={key} />
+          <ProfileIcon name={profile.key} />
         </a>
       ))}
-    </div>
+    </nav>
   );
 }

@@ -3,14 +3,13 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import { SocialLinks } from "@/components/SocialLinks";
-import { getContactHref, getContactLabel } from "@/lib/contact";
+import { ProfileLinks } from "@/components/ProfileLinks";
+import { getContactHref } from "@/lib/contact";
 import { prefersReducedMotion } from "@/lib/motion";
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contactHref = getContactHref();
-  const contactLabel = getContactLabel();
 
   useGSAP(
     () => {
@@ -40,26 +39,26 @@ export function ContactSection() {
         <p className="label-mono contact-muted">05 / Contact</p>
 
         <h2 className="display-serif contact-headline mt-3 font-medium sm:mt-4">
-          Open to new opportunities.
+          Have a product to build?
         </h2>
 
         <p className="contact-copy mt-5 max-w-xl text-sm leading-relaxed sm:mt-6 sm:text-base md:text-lg">
-          If you need someone who can own features across the stack, send a
-          message. I read every inquiry.
+          I&apos;m open to full-time roles, freelance projects, and interesting
+          products where I can own work across the stack.
         </p>
 
         <a
           href={contactHref}
           className="contact-cta mt-8 sm:mt-10"
         >
-          <span className="contact-cta-label">{contactLabel}</span>
+          <span className="contact-cta-label">Let&apos;s talk</span>
           <span className="contact-cta-icon" aria-hidden="true">
             <span className="contact-cta-arrow">↗</span>
             <span className="contact-cta-arrow">↗</span>
           </span>
         </a>
 
-        <SocialLinks className="contact-social mt-8 flex flex-wrap sm:mt-10" />
+        <ProfileLinks className="contact-profiles mt-8 sm:mt-10" />
       </div>
     </footer>
   );

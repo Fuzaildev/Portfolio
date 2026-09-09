@@ -3,6 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { indexNav } from "@/data/portfolio";
+import { ProfileLinks } from "@/components/ProfileLinks";
 
 type MobileNavMenuProps = {
   active: string;
@@ -84,6 +85,7 @@ export function MobileNavMenu({ active, onNavigate }: MobileNavMenuProps) {
               </button>
             ))}
           </nav>
+          <ProfileLinks className="folio-menu-profiles" />
         </div>
       </div>
     </>

@@ -22,6 +22,11 @@ export type Project = {
   coverImage?: string;
   coverBleed?: boolean;
   role: string;
+  /** End brand / product when it differs from the contracting company. */
+  builtFor?: string;
+  /** Agency or employer through which the work was delivered. */
+  through?: string;
+  /** Simple attribution when builtFor / through are not needed. */
   client?: string;
   overview: string;
   challenge: string;

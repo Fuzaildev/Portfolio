@@ -3,8 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import { CapabilitiesMarquee } from "@/components/motion/CapabilitiesMarquee";
-import { capabilities, site } from "@/data/portfolio";
+import { capabilityGroups } from "@/data/portfolio";
 import { prefersReducedMotion } from "@/lib/motion";
 
 export function IntroSection() {
@@ -44,22 +43,27 @@ export function IntroSection() {
 
       <h2 className="display-serif intro-headline mt-4 font-medium sm:mt-6">
         <span className="block overflow-hidden">
-          <span className="intro-line block">Full stack engineer</span>
-        </span>
-        <span className="block overflow-hidden">
-          <span className="intro-line block text-muted">
-            building for production.
+          <span className="intro-line block">
+            I build web products that are meant to ship.
           </span>
         </span>
       </h2>
 
       <p className="intro-fade mt-6 max-w-2xl text-sm leading-relaxed text-muted sm:mt-8 sm:text-base md:text-lg">
-        {site.statement}
+        Full-stack engineer working across React, Python, APIs, databases, and
+        the systems that connect them.
       </p>
 
-      <div className="intro-fade mt-8 border-t border-line pt-6 sm:mt-10 sm:pt-8">
-        <CapabilitiesMarquee items={capabilities} />
-      </div>
+      <dl className="intro-fade stack-groups mt-8 border-t border-line pt-6 sm:mt-10 sm:pt-8">
+        {capabilityGroups.map((group) => (
+          <div key={group.label} className="stack-group">
+            <dt className="label-mono text-muted">{group.label}</dt>
+            <dd className="mt-2 text-sm leading-relaxed sm:text-base">
+              {group.items.join(" · ")}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }

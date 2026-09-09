@@ -183,7 +183,19 @@ export function CaseStudyView({ project }: { project: Project }) {
           <dt className="label-mono text-muted">Role</dt>
           <dd>{project.role}</dd>
         </div>
-        {project.client ? (
+        {project.builtFor ? (
+          <div>
+            <dt className="label-mono text-muted">Built for</dt>
+            <dd>{project.builtFor}</dd>
+          </div>
+        ) : null}
+        {project.through ? (
+          <div>
+            <dt className="label-mono text-muted">Through</dt>
+            <dd>{project.through}</dd>
+          </div>
+        ) : null}
+        {!project.builtFor && !project.through && project.client ? (
           <div>
             <dt className="label-mono text-muted">Client</dt>
             <dd>{project.client}</dd>

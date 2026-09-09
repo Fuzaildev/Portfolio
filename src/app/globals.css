@@ -188,6 +188,53 @@ body {
   line-height: 1.5;
 }
 
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.profile-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+
+.profile-link:hover,
+.profile-link:focus-visible {
+  color: var(--ink);
+}
+
+.folio-profiles-mobile {
+  margin-inline: -0.5rem;
+  overflow: hidden;
+  max-height: 2.75rem;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Compact transitions only after boot — avoids fighting GSAP opacity/y */
+.folio-rail.is-ready .folio-profiles-mobile {
+  transition:
+    max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease,
+    margin 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.folio-rail.is-compact .folio-profiles-mobile {
+  max-height: 0;
+  margin-top: 0;
+  opacity: 0;
+  transform: translateY(-0.35rem);
+  pointer-events: none;
+}
+
 /* Mobile + tablet: stacked layout */
 .folio-grid {
   display: block;
@@ -226,6 +273,10 @@ body {
   max-height: 4rem;
   opacity: 1;
   transform: translateY(0);
+}
+
+.folio-rail.is-ready .folio-location,
+.folio-rail.is-ready .folio-role {
   transition:
     max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.3s ease,
@@ -410,7 +461,10 @@ html.folio-nav-compact .folio-hamburger {
   width: min(26rem, 86vw);
   max-width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 2rem;
   padding:
     calc(var(--rail-height-mobile, 5rem) + 1.5rem)
     var(--page-inline)
@@ -714,28 +768,13 @@ html.folio-nav-compact .folio-hamburger {
   font-size: clamp(2rem, 7vw, 5.5rem);
 }
 
-.capabilities-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1rem;
+.stack-groups {
+  display: grid;
+  gap: 1.25rem 1.5rem;
 }
 
-.marquee {
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-}
-
-.marquee-sequence {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem 1.75rem;
-  padding-right: 1.75rem;
+.stack-group dd {
+  color: var(--ink);
 }
 
 .about-grid {
@@ -842,17 +881,14 @@ html.folio-nav-compact .folio-hamburger {
   word-break: break-word;
 }
 
-.contact-social {
-  gap: 0.75rem 1rem;
+.contact-invert .profile-link {
+  /* Opaque mix — transparent paper looks washed-out on icons at mobile sizes */
+  color: color-mix(in srgb, var(--paper) 78%, var(--ink));
 }
 
-.social-link {
-  color: var(--muted);
-  transition: color 0.2s ease;
-}
-
-.social-link:hover {
-  color: var(--ink);
+.contact-invert .profile-link:hover,
+.contact-invert .profile-link:focus-visible {
+  color: var(--paper);
 }
 
 .contact-invert {
@@ -981,14 +1017,6 @@ html.folio-nav-compact .folio-hamburger {
   color: var(--ink);
 }
 
-.contact-invert .social-link {
-  color: color-mix(in srgb, var(--paper) 62%, transparent);
-}
-
-.contact-invert .social-link:hover {
-  color: var(--paper);
-}
-
 .case-page {
   width: min(100%, 1100px);
   margin-inline: auto;
@@ -1029,6 +1057,12 @@ html.folio-nav-compact .folio-hamburger {
   letter-spacing: -0.03em;
   line-height: 1.1;
   text-decoration: none;
+}
+
+.page-header-profiles {
+  display: none;
+  margin-left: auto;
+  margin-right: 0.75rem;
 }
 
 .page-header-last {
@@ -1374,6 +1408,11 @@ html.folio-nav-compact .folio-hamburger {
   .about-facts {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .stack-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1496,6 +1535,10 @@ html.folio-nav-compact .folio-hamburger {
     scroll-padding-top: 0;
   }
 
+  .stack-groups {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .case-hero {
     display: grid;
     grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
@@ -1570,8 +1613,9 @@ html.folio-nav-compact .folio-hamburger {
     gap: 0;
   }
 
-  .folio-social {
-    display: none !important;
+  .folio-rail-footer .profile-link {
+    min-height: 2.5rem;
+    min-width: 2.5rem;
   }
 
   .folio-hamburger,
@@ -1582,6 +1626,11 @@ html.folio-nav-compact .folio-hamburger {
 
   .page-header-last {
     display: inline;
+  }
+
+  .page-header-profiles {
+    display: flex;
+    margin-right: 0;
   }
 
   .folio-rail.is-compact {
@@ -1685,26 +1734,6 @@ html.folio-nav-compact .folio-hamburger {
   .folio-hamburger,
   .folio-hamburger-slot {
     transition: none;
-  }
-
-  .marquee {
-    overflow: visible;
-    mask-image: none;
-  }
-
-  .marquee-track {
-    transform: none !important;
-    flex-wrap: wrap;
-    width: 100%;
-  }
-
-  .marquee-sequence {
-    flex-wrap: wrap;
-    padding-right: 0;
-  }
-
-  .marquee-sequence[aria-hidden="true"] {
-    display: none;
   }
 
   .exp-item {

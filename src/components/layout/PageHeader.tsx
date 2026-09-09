@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { MobileNavMenu } from "@/components/layout/MobileNavMenu";
+import { ProfileLinks } from "@/components/ProfileLinks";
 import { site } from "@/data/portfolio";
 import { splitSiteName } from "@/lib/brand";
 
@@ -31,6 +32,7 @@ export function PageHeader() {
         <span>{firstName}</span>
         <span className="page-header-last">{lastName}</span>
       </Link>
+      <ProfileLinks className="page-header-profiles" />
       <MobileNavMenu
         active={active}
         onNavigate={(id) => router.push(`/#${id}`)}

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import { SocialLinks } from "@/components/SocialLinks";
+import { ProfileLinks } from "@/components/ProfileLinks";
 import { MobileNavMenu } from "@/components/layout/MobileNavMenu";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useCompactNav } from "@/hooks/useCompactNav";
@@ -31,14 +31,26 @@ export function IdentityRail() {
 
   useGSAP(
     () => {
-      if (prefersReducedMotion()) return;
+      const rail = railRef.current;
+      const markReady = () => rail?.classList.add("is-ready");
 
-      gsap.from(".rail-boot", {
+      if (prefersReducedMotion()) {
+        markReady();
+        return;
+      }
+
+      const boots = gsap.utils.toArray<HTMLElement>(".rail-boot");
+
+      gsap.from(boots, {
         opacity: 0,
         y: 18,
         duration: 0.85,
         stagger: 0.07,
         ease: "power3.out",
+        onComplete: () => {
+          gsap.set(boots, { clearProps: "opacity,transform,translate" });
+          markReady();
+        },
       });
 
       gsap.from(".rail-link", {
@@ -94,6 +106,7 @@ export function IdentityRail() {
             <p className="rail-boot folio-role max-w-sm text-sm leading-relaxed text-muted md:text-[0.95rem]">
               {site.role}
             </p>
+            <ProfileLinks className="rail-boot folio-profiles-mobile mt-4 lg:hidden" />
             <p className="rail-boot folio-statement mt-5 hidden max-w-prose text-sm leading-relaxed text-muted md:block">
               {site.statement}
             </p>
@@ -129,10 +142,7 @@ export function IdentityRail() {
       </div>
 
       <div className="folio-rail-footer">
-        <p className="rail-boot folio-email label-mono text-muted">
-          Open to new work
-        </p>
-        <SocialLinks className="folio-social mt-3 flex gap-2" />
+        <ProfileLinks className="rail-boot" />
       </div>
     </aside>
   );

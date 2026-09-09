@@ -17,30 +17,31 @@ export const site = {
   email: "thefuzailk@gmail.com",
   location: "Remote · Worldwide",
   seoDescription:
-    "Full stack engineer shipping production web applications with React, Python, and Django. UI implementation, REST APIs, database design, and deployment.",
+    "Full stack engineer building web applications with React, Python, and Django. UI implementation, REST APIs, database design, and deployment.",
   keywords: [
     "Fuzail Khan",
     "Full Stack Engineer",
     "Frontend Developer",
     "React Developer",
+    "TypeScript",
+    "Next.js",
     "Django Developer",
     "Python Developer",
     "Web Developer",
     "Portfolio",
     "GSAP",
     "Framer Motion",
-    "Flutter",
     "MySQL",
   ],
   statement:
-    "I build and ship full stack web products: React frontends, Python/Django APIs, and the data layer to support them in production.",
+    "Full-stack engineer working across React, Python, APIs, databases, and the systems that connect them.",
   bio: [
-    "I work across the stack on web applications, from component architecture and API contracts to schema design and deployment. I prioritize maintainable code, measurable performance, and systems that are straightforward to extend as requirements change.",
-    "Recent work includes SaaS dashboards, client-facing marketing sites, internal tools, and Flutter apps backed by Django REST APIs. I care about getting the fundamentals right: auth, error handling, caching, and interfaces that stay fast under real traffic.",
+    "From the interface users interact with to the API, database, and deployment underneath it, I enjoy working across the stack and making the pieces work together properly.",
+    "My work spans SaaS products, business platforms, healthcare systems, and high-end marketing sites. I care about clean interfaces, sensible architecture, performance, and shipping something that can actually be used—not just something that looks good in a demo.",
   ],
   facts: [
     { label: "Role", value: "Full stack engineer" },
-    { label: "Focus", value: "Production web systems" },
+    { label: "Focus", value: "End-to-end web apps" },
     { label: "Location", value: "Remote · Worldwide" },
   ],
   social: {
@@ -58,12 +59,7 @@ export const indexNav: NavItem[] = [
   { id: "contact", label: "Contact", num: "05" },
 ];
 
-export const aboutQuote = [
-  "I optimize for software",
-  "that is reliable in production,",
-  "straightforward to maintain,",
-  "and fast for end users.",
-];
+export const aboutQuote = ["I like owning", "the whole problem."];
 
 export const projects: Project[] = [
   {
@@ -73,7 +69,7 @@ export const projects: Project[] = [
     type: "Full Stack",
     year: "2026",
     description:
-      "CAD design and 3D printing studio site for India, USA, UK, and worldwide — end-to-end build with SEO and AEO baked in.",
+      "An industrial studio site built end to end—services, work gallery, process story, and consultation path—with SEO and AEO so search and answer engines can cite the brand.",
     stack: ["React", "Vite", "GSAP", "Lenis", "Three.js"],
     cover: "techworks",
     coverImage: "/work/precision-techworks.jpg",
@@ -86,13 +82,13 @@ export const projects: Project[] = [
     challenge:
       "The brand sells both digital CAD delivery and physical printed parts across time zones. The site had to feel industrial and precise, showcase models you can hold, and answer buyer questions (files, materials, shipping, pricing) in a way that works for Google, AI overviews, and remote WhatsApp leads — without reading like a keyword dump.",
     outcome:
-      "The live site opens on craft, then walks visitors through CAD and print services, a project gallery, a four-step pipeline, and an FAQ tuned for answer engines. Schema covers organization, services, how-to, FAQ, and work gallery, with clear routes from first look to a consultation.",
+      "Shipped a live site with 2 service lines, 6 showcased projects, a 4-step delivery pipeline, and a 10-answer FAQ. Structured data covers Organization, FAQPage, HowTo, ItemList, and speakable copy, with a single path from first look to consultation.",
     quote: "From model to matter. Built for search and answers.",
     stats: [
-      { value: "02", label: "Core services" },
-      { value: "06", label: "Projects shown" },
+      { value: "02", label: "Service lines" },
+      { value: "06", label: "Projects showcased" },
       { value: "10", label: "FAQ answers" },
-      { value: "WW", label: "Markets served" },
+      { value: "05", label: "Schema types" },
     ],
     markets: ["India", "USA", "UK", "Europe", "Worldwide"],
     stripLabel: "Serving",
@@ -121,9 +117,9 @@ export const projects: Project[] = [
     ],
     tools: ["CAD Design", "3D Printing", "FAQ / AEO", "Consultation"],
     highlights: [
-      "End-to-end site for Precision Techworks: brand, services, work, process, and leads.",
-      "SEO and AEO with Organization, FAQPage, HowTo, ItemList, and speakable structured data.",
-      "Remote-ready story for India, USA, UK, and worldwide CAD delivery and part shipping.",
+      "Built the full marketing system: hero, 2 services, work gallery, pipeline, FAQ, and consultation CTA.",
+      "Implemented 5 schema types (Organization, FAQPage, HowTo, ItemList, speakable) for search and answer engines.",
+      "Structured the site for remote leads across India, USA, UK, Europe, and worldwide shipping.",
     ],
   },
   {
@@ -133,26 +129,27 @@ export const projects: Project[] = [
     type: "Full Stack",
     year: "2026",
     description:
-      "Luxury interior studio in Bengaluru. Residential and commercial work, the team, and a clear path from first look to consultation.",
+      "A premium interior-design website built around storytelling, project discovery, and consultation conversion.",
     stack: ["Framer", "GSAP", "Lenis", "React"],
     cover: "couch",
     coverImage: "/work/couch-and-closet.jpg",
     coverBleed: true,
     role: "Full Stack Engineer",
-    client: "Kailune",
+    builtFor: "Couch & Closet",
+    through: "Kailune",
     liveUrl: "https://couchandcloset.com/",
     overview:
       "Couch & Closet is a luxury interior design studio in Bengaluru. I built the public site: a full-bleed hero, studio team, residential and commercial work, a three-step process, client proof, a budget estimator, and a consultation booking path, positioned as a considered brand, not a generic interior brochure.",
     challenge:
-      "The studio needed a site that feels as restrained as the rooms they design, while still carrying a large project gallery, team stories, testimonials, and a lead path. Motion and photography had to stay premium without slowing Core Web Vitals or burying the call to book.",
+      "The studio needed a site that feels as restrained as the rooms they design, while still carrying a large project gallery, team stories, testimonials, and a lead path. Motion and photography had to stay premium without burying the call to book.",
     outcome:
-      "The live site opens on craft, then walks visitors through work, process, and proof before a budget and consultation close. Residential and commercial interiors sit in one filtered gallery, with a clear route from first look to a booked conversation.",
+      "Shipped a live site with 50+ projects across 2 work categories, a filtered gallery, a 3-step process, a budget estimator, and a consultation booking funnel from first visit to a booked conversation.",
     quote: "Space worth coming home to. Told as a studio, not a catalog.",
     stats: [
-      { value: "10+", label: "Years in design" },
-      { value: "50+", label: "Projects shown" },
-      { value: "02", label: "Work types" },
-      { value: "01", label: "Booking path" },
+      { value: "50+", label: "Projects showcased" },
+      { value: "02", label: "Work categories" },
+      { value: "01", label: "Budget estimator" },
+      { value: "01", label: "Consultation funnel" },
     ],
     markets: ["Residential", "Commercial"],
     stripLabel: "Designed for",
@@ -181,9 +178,9 @@ export const projects: Project[] = [
     ],
     tools: ["Work gallery", "Team", "Budget estimator", "Consultation"],
     highlights: [
-      "Live site for Couch & Closet: studio story, work gallery, and consultation booking.",
-      "Residential and commercial work gallery with team, process, and testimonials.",
-      "Budget estimator and consultation path from first visit to a booked conversation.",
+      "Built the studio narrative and a filtered gallery covering 50+ residential and commercial projects.",
+      "Shipped a 3-step process story plus social proof without turning the site into a brochure dump.",
+      "Added a budget estimator and consultation funnel so discovery converts into booked conversations.",
     ],
   },
   {
@@ -193,19 +190,20 @@ export const projects: Project[] = [
     type: "Frontend Engineering",
     year: "2025",
     description:
-      "Product site for an AI-powered ERPNext SaaS platform serving GCC markets: finance, CRM, HR, healthcare, and education in one system.",
+      "A product marketing frontend for an AI-powered ERP SaaS—module storytelling, multi-market positioning, and clear paths from the site into day-to-day tools.",
     stack: ["Django", "JavaScript", "Bootstrap", "HTML/CSS"],
     cover: "precise",
     coverImage: "/work/precise-erp.png",
     role: "Frontend engineer",
-    client: "Saify Technology",
+    builtFor: "Precise ERP",
+    through: "Saify Technology",
     liveUrl: "https://preciseerp.com/",
     overview:
       "Precise ERP is the public site for an ERPNext SaaS product used across Kuwait, UAE, Qatar, Saudi Arabia, and Oman. I built the frontend: module storytelling, GCC positioning, and the paths from the marketing site into operational tools such as invoicing, quotations, and purchase orders.",
     challenge:
-      "The product covers five industries and five countries. The site had to explain a dense ERP without reading like a feature dump, keep localization for taxes and compliance visible, and stay fast on a Django-rendered, Bootstrap-based stack.",
+      "The product covers five industries and five countries. The site had to explain a dense ERP without reading like a feature dump, keep localization for taxes and compliance visible, and stay usable on a Django-rendered, Bootstrap-based stack.",
     outcome:
-      "The live site presents ERP, CRM, HR, healthcare, and education as distinct entries into one platform, with GCC coverage and a trial path. Operators can move from the product story into day-to-day tools without a separate brochure experience.",
+      "Shipped a frontend covering 5 product modules across 5 GCC markets, with entry points into 4 live tools (sales invoice, AI sales invoice, quotation, purchase order) and a 30-day trial path.",
     quote: "Five industries. Five countries. One frontend system.",
     stats: [
       { value: "05", label: "GCC markets" },
@@ -240,9 +238,9 @@ export const projects: Project[] = [
     ],
     tools: ["Sales Invoice", "AI Sales Invoice", "Quotation", "Purchase Order"],
     highlights: [
-      "Frontend for an ERPNext SaaS product site covering five GCC markets.",
-      "Shared layout for finance, CRM, HR, healthcare, and education modules.",
-      "Entry points to sales invoices, quotations, and purchase orders.",
+      "Built the marketing frontend for 5 modules across 5 GCC markets on a shared layout system.",
+      "Connected the product story to 4 operational tools operators use day to day.",
+      "Kept localization and compliance visible without turning the site into a feature dump.",
     ],
     modulesHeading: "Five modules, one system.",
   },
@@ -253,7 +251,7 @@ export const projects: Project[] = [
     type: "Full Stack",
     year: "2025",
     description:
-      "Healthcare management system for hospitals, clinics, labs, and pharmacies, with separate portals for doctors, staff, and patients.",
+      "A full-stack healthcare platform with role-based portals for doctors, staff, and patients—appointments, records, prescriptions, and lab workflows on Flask and MySQL.",
     stack: ["Flask", "Python", "MySQL", "HTML/CSS", "JavaScript"],
     cover: "mocdoc",
     coverImage: "/work/mocdoc.webp",
@@ -264,13 +262,13 @@ export const projects: Project[] = [
     challenge:
       "Three user types needed different dashboards without three separate apps. Patient data had to persist in MySQL, sessions had to survive the jump from signup to booking, and the marketing pages still had to explain hospital, clinic, laboratory, and pharmacy products clearly.",
     outcome:
-      "One Flask codebase serves the marketing site and the three portals. Patients can register, sign in, and book; doctors and staff get appointment, records, and lab workflows. The product story and the operational UI live in the same system.",
+      "Shipped one Flask + MySQL codebase serving 3 authenticated portals and 4 care products, with 20+ app screens covering registration, appointments, records, prescriptions, and lab workflows.",
     quote: "Hospital, clinic, lab, and pharmacy. One Flask stack.",
     stats: [
       { value: "03", label: "User portals" },
       { value: "04", label: "Care products" },
       { value: "20+", label: "App screens" },
-      { value: "01", label: "MySQL model" },
+      { value: "01", label: "Shared codebase" },
     ],
     markets: ["Doctors", "Clinic staff", "Patients"],
     stripLabel: "Built for",
@@ -299,9 +297,9 @@ export const projects: Project[] = [
     ],
     tools: ["Appointments", "Prescriptions", "Lab tests", "Medical records"],
     highlights: [
-      "Flask + MySQL patient registration, login, and sessioned dashboards.",
-      "Separate doctor, staff, and patient portals for day-to-day clinic work.",
-      "Marketing pages for hospital, clinic, laboratory, and pharmacy products.",
+      "Built 3 role-based portals (doctor, staff, patient) in a single Flask application.",
+      "Modeled patient data in MySQL and carried sessions from registration through booking.",
+      "Covered hospital, clinic, laboratory, and pharmacy product stories plus 20+ operational screens.",
     ],
   },
 ];
@@ -323,11 +321,11 @@ export const roles: Role[] = [
     title: "Full Stack Engineer",
     period: "Jul 2026 to Present",
     summary:
-      "Own full stack delivery across React applications, Django/Python services, and MySQL data layers. Also ship marketing sites in Framer with performance-focused motion.",
+      "Own full stack delivery across React applications, Django/Python services, and MySQL data layers. Also ship marketing sites in Framer with scroll-driven motion.",
     points: [
-      "Build and deploy features spanning React UI, REST endpoints, and database schema changes.",
-      "Deliver Framer sites with Lenis smooth scroll and GSAP animation, tuned for Core Web Vitals.",
-      "Drive technical decisions from component structure through production rollout and iteration.",
+      "Built full-stack features across React, REST APIs, and MySQL, from UI architecture through database and deployment.",
+      "Shipped Framer marketing sites with Lenis smooth scroll and GSAP animation, including Couch & Closet.",
+      "Designed technical approach for component structure, API contracts, and iterative rollout across client work.",
     ],
   },
   {
@@ -336,27 +334,31 @@ export const roles: Role[] = [
     title: "Frontend Developer",
     period: "Mar 2025 to Jun 2026",
     summary:
-      "Developed React and Flutter clients integrated with Django REST APIs for cross-platform web and mobile products in production.",
+      "Built React and Flutter clients on Django REST APIs for cross-platform web and mobile products.",
     points: [
-      "Shipped responsive web apps and Flutter mobile clients focused on performance and maintainable state management.",
-      "Implemented Django REST APIs for authentication, business logic, and third-party service integration.",
-      "Built backend endpoints for data persistence, file handling, and live production features.",
-      "Integrated third-party APIs and SDKs for Canva, Adobe Creative Cloud, Microsoft 365, and Google Workspace.",
+      "Shipped responsive React web apps and Flutter mobile clients with shared Django API contracts.",
+      "Built Django REST endpoints for authentication, business logic, file handling, and product workflows.",
+      "Integrated Canva, Adobe Creative Cloud, Microsoft 365, and Google Workspace APIs and SDKs into client products.",
+      "Designed frontend architecture for Precise ERP's public site across five modules and five GCC markets.",
     ],
   },
 ];
 
-export const capabilities = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "React",
-  "Flutter",
-  "GSAP",
-  "Framer Motion",
-  "Lenis",
-  "Python",
-  "Django",
-  "Flask",
-  "MySQL",
+export const capabilityGroups = [
+  {
+    label: "Frontend",
+    items: ["React", "TypeScript", "Next.js", "JavaScript"],
+  },
+  {
+    label: "Backend",
+    items: ["Express.js", "Python", "Django", "Flask", "REST APIs"],
+  },
+  {
+    label: "Data",
+    items: ["MySQL", "SQL", "MongoDB"],
+  },
+  {
+    label: "Motion / UI",
+    items: ["GSAP", "Framer Motion", "Lenis", "Locomotive Scroll"],
+  },
 ];
