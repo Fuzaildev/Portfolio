@@ -9,21 +9,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectCover } from "@/components/work/ProjectCover";
 import { getNextProject, type Project } from "@/data/portfolio";
-
-function titleLines(title: string) {
-  const words = title.split(/\s+/).filter(Boolean);
-  const lines: string[] = [];
-
-  for (const word of words) {
-    if (word === "&" && lines.length > 0) {
-      lines[lines.length - 1] += ` ${word}`;
-    } else {
-      lines.push(word);
-    }
-  }
-
-  return lines;
-}
+import { titleLines } from "@/lib/title";
 
 export function CaseStudyView({ project }: { project: Project }) {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -166,6 +152,8 @@ export function CaseStudyView({ project }: { project: Project }) {
           title={project.title}
           image={project.coverImage}
           bleed={project.coverBleed}
+          priority
+          sizes="(min-width: 768px) 70vw, 100vw"
         />
         {project.stats?.length ? (
           <dl className="case-stage-stats">

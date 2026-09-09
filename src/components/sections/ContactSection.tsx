@@ -4,15 +4,13 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { SocialLinks } from "@/components/SocialLinks";
-import { site } from "@/data/portfolio";
+import { getContactHref, getContactLabel } from "@/lib/contact";
 import { prefersReducedMotion } from "@/lib/motion";
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const contactHref = site.email
-    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(site.email)}`
-    : site.social.linkedin;
-  const contactLabel = site.email || "Message on LinkedIn";
+  const contactHref = getContactHref();
+  const contactLabel = getContactLabel();
 
   useGSAP(
     () => {
@@ -53,8 +51,6 @@ export function ContactSection() {
         <a
           href={contactHref}
           className="contact-cta mt-8 sm:mt-10"
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <span className="contact-cta-label">{contactLabel}</span>
           <span className="contact-cta-icon" aria-hidden="true">

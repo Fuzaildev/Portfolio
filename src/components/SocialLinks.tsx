@@ -1,5 +1,3 @@
-"use client";
-
 import { site } from "@/data/portfolio";
 
 type SocialKey = keyof typeof site.social;

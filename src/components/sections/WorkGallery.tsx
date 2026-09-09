@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { gsap, ScrollTrigger, whenLayoutReady } from "@/lib/gsap";
-import { captureProjectFlip } from "@/lib/flip-store";
+import { DESKTOP_MQ, isDesktopViewport } from "@/lib/breakpoints";
+import { findClosestIndex, padIndex } from "@/lib/dom";
 import { prefersReducedMotion } from "@/lib/motion";
-import { ProjectCover } from "@/components/work/ProjectCover";
+import { ProjectPanel } from "@/components/work/ProjectPanel";
 import { useLenis } from "@/components/providers/SmoothScrollProvider";
-import { projects, type Project } from "@/data/portfolio";
+import { projects } from "@/data/portfolio";
+
+function setProgress(el: HTMLElement | null, index: number) {
+  if (!el || projects.length < 2) return;
+  el.style.transform = `scaleX(${index / (projects.length - 1)})`;
+}
 
 export function WorkGallery() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -33,7 +38,7 @@ export function WorkGallery() {
     whenLayoutReady().then(() => {
       if (cancelled) return;
 
-      mm.add("(min-width: 1024px)", () => {
+      mm.add(DESKTOP_MQ, () => {
         if (reduced || projects.length < 2) return;
 
         const panels = Array.from(
@@ -51,17 +56,7 @@ export function WorkGallery() {
 
         const syncVisibleCard = () => {
           const origin = scroller.getBoundingClientRect().left;
-          let closest = 0;
-          let closestDistance = Infinity;
-
-          panels.forEach((panel, index) => {
-            const delta = Math.abs(panel.getBoundingClientRect().left - origin);
-            if (delta < closestDistance) {
-              closestDistance = delta;
-              closest = index;
-            }
-          });
-
+          const closest = findClosestIndex(panels, origin, "edge");
           setActiveIndex(closest);
 
           if (progressRef.current && projects.length > 1) {
@@ -120,7 +115,7 @@ export function WorkGallery() {
     if (!scroller) return;
 
     const onScroll = () => {
-      if (window.innerWidth >= 1024 && !prefersReducedMotion()) return;
+      if (isDesktopViewport() && !prefersReducedMotion()) return;
 
       const panels = Array.from(
         scroller.querySelectorAll<HTMLElement>(".project-panel")
@@ -128,27 +123,11 @@ export function WorkGallery() {
       if (!panels.length) return;
 
       const scrollerRect = scroller.getBoundingClientRect();
-      const scrollerCenter = scrollerRect.left + scrollerRect.width / 2;
-
-      let closest = 0;
-      let closestDistance = Infinity;
-
-      panels.forEach((panel, index) => {
-        const panelRect = panel.getBoundingClientRect();
-        const panelCenter = panelRect.left + panelRect.width / 2;
-        const distance = Math.abs(scrollerCenter - panelCenter);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closest = index;
-        }
-      });
+      const origin = scrollerRect.left + scrollerRect.width / 2;
+      const closest = findClosestIndex(panels, origin, "center");
 
       setActiveIndex(closest);
-      if (progressRef.current && projects.length > 1) {
-        progressRef.current.style.transform = `scaleX(${
-          closest / (projects.length - 1)
-        })`;
-      }
+      setProgress(progressRef.current, closest);
     };
 
     scroller.addEventListener("scroll", onScroll, { passive: true });
@@ -160,7 +139,7 @@ export function WorkGallery() {
   const scrollToProject = (index: number) => {
     if (index < 0 || index >= projects.length) return;
 
-    if (window.innerWidth >= 1024 && !prefersReducedMotion()) {
+    if (isDesktopViewport() && !prefersReducedMotion()) {
       const trigger = scrollTriggerRef.current;
       if (trigger && projects.length > 1) {
         const progress = index / (projects.length - 1);
@@ -214,8 +193,7 @@ export function WorkGallery() {
         <div className="work-controls">
           <div className="work-progress-meta">
             <span className="label-mono text-muted">
-              {String(activeIndex + 1).padStart(2, "0")} /{" "}
-              {String(projects.length).padStart(2, "0")}
+              {padIndex(activeIndex + 1)} / {padIndex(projects.length)}
             </span>
             <div className="work-progress" aria-hidden="true">
               <span
@@ -260,93 +238,5 @@ export function WorkGallery() {
         </div>
       </div>
     </section>
-  );
-}
-
-function ProjectPanel({ project }: { project: Project }) {
-  const coverRef = useRef<HTMLDivElement>(null);
-
-  const onOpen = () => {
-    if (coverRef.current) {
-      captureProjectFlip(coverRef.current, project.slug);
-    }
-  };
-
-  return (
-    <article className="project-panel group border border-line bg-surface">
-      <div className="project-panel-head">
-        <span className="label-mono text-muted">{project.id}</span>
-        <span className="label-mono text-muted">{project.year}</span>
-      </div>
-
-      <Link
-        href={`/work/${project.slug}`}
-        className="project-preview-link"
-        onClick={onOpen}
-      >
-        <div
-          ref={coverRef}
-          data-flip-id={`project-${project.slug}`}
-          className="project-preview"
-        >
-          <ProjectCover
-            variant={project.cover}
-            title={project.title}
-            image={project.coverImage}
-            bleed={project.coverBleed}
-          />
-          <div className="project-preview-meta">
-            <span className="display-serif project-title font-medium">
-              {project.title}
-            </span>
-          </div>
-        </div>
-      </Link>
-
-      <div className="project-panel-body">
-        <p className="label-mono text-muted">{project.type}</p>
-        <p className="project-description mt-2 text-sm leading-relaxed text-muted sm:text-base">
-          {project.description}
-        </p>
-
-        <div className="project-stack">
-          {project.stack.map((item) => (
-            <span key={item} className="label-mono text-muted">
-              {item}
-            </span>
-          ))}
-        </div>
-
-        <div className="project-footer-links">
-          <Link
-            href={`/work/${project.slug}`}
-            className="project-footer-link label-mono"
-            onClick={onOpen}
-          >
-            Read case study ↗
-          </Link>
-          {project.liveUrl ? (
-            <a
-              href={project.liveUrl}
-              className="project-footer-link label-mono"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Visit live site ↗
-            </a>
-          ) : null}
-          {project.repoUrl ? (
-            <a
-              href={project.repoUrl}
-              className="project-footer-link label-mono"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on GitHub ↗
-            </a>
-          ) : null}
-        </div>
-      </div>
-    </article>
   );
 }

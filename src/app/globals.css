@@ -6,9 +6,9 @@
   --muted: #7a7a7a;
   --line: #d9d9d6;
   --surface: #ffffff;
-  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
-  --font-body: "Manrope", "Segoe UI", sans-serif;
-  --font-mono: "Space Mono", "Courier New", monospace;
+  --font-display: var(--font-fraunces), "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body: var(--font-manrope), "Segoe UI", sans-serif;
+  --font-mono: var(--font-space-mono), "Courier New", monospace;
   --rail-height-mobile: 8.75rem;
   --section-space: clamp(3rem, 8vw, 6rem);
   --page-inline: clamp(1rem, 4vw, 2.5rem);
@@ -1148,15 +1148,15 @@ html.folio-nav-compact .folio-hamburger {
 }
 
 .case-stage .project-cover--image .project-cover-art {
+  object-fit: contain;
+  object-position: center;
   padding: clamp(1rem, 4vw, 2rem);
 }
 
 .case-stage .project-cover--bleed.project-cover--image .project-cover-art {
-  width: 100%;
-  height: 100%;
-  padding: 0;
   object-fit: cover;
   object-position: center;
+  padding: 0;
 }
 
 .case-stage-stats {
@@ -1426,6 +1426,8 @@ html.folio-nav-compact .folio-hamburger {
   .case-stage .project-cover--image .project-cover-art {
     width: 58%;
     height: 100%;
+    left: auto;
+    right: 0;
     padding: 2rem 2rem 2rem 0;
     object-fit: contain;
     object-position: center right;
@@ -1434,6 +1436,8 @@ html.folio-nav-compact .folio-hamburger {
   .case-stage .project-cover--bleed.project-cover--image .project-cover-art {
     width: 100%;
     height: 100%;
+    left: 0;
+    right: 0;
     padding: 0;
     object-fit: cover;
     object-position: center;

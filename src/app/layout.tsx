@@ -1,9 +1,30 @@
 import type { Metadata, Viewport } from "next";
+import { Fraunces, Manrope, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { jsonLd, seo } from "@/lib/seo";
 import { site } from "@/data/portfolio";
-import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ContactSection } from "@/components/sections/ContactSection";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+  axes: ["opsz"],
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(seo.url),
@@ -78,30 +99,21 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`h-full antialiased ${fraunces.variable} ${manrope.variable} ${spaceMono.variable}`.trim()}
+      suppressHydrationWarning
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600&family=Space+Mono&display=swap"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body
-        className="min-h-full bg-paper text-ink"
-        suppressHydrationWarning
-      >
+      <body className="min-h-full bg-paper text-ink" suppressHydrationWarning>
         <SmoothScrollProvider>
           {children}
-          <SiteFooter />
+          <ContactSection />
         </SmoothScrollProvider>
       </body>
     </html>

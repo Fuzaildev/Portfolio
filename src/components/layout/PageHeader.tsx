@@ -5,9 +5,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { MobileNavMenu } from "@/components/layout/MobileNavMenu";
 import { site } from "@/data/portfolio";
+import { splitSiteName } from "@/lib/brand";
 
-const firstName = site.name.split(" ")[0];
-const lastName = site.name.slice(firstName.length);
+const { firstName, lastName } = splitSiteName();
 
 export function PageHeader() {
   const pathname = usePathname();

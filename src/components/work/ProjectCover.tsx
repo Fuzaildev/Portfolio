@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ProjectCoverVariant } from "@/data/portfolio";
 
 type ProjectCoverProps = {
@@ -6,6 +7,8 @@ type ProjectCoverProps = {
   image?: string;
   bleed?: boolean;
   className?: string;
+  priority?: boolean;
+  sizes?: string;
 };
 
 export function ProjectCover({
@@ -14,6 +17,8 @@ export function ProjectCover({
   image,
   bleed = false,
   className = "",
+  priority = false,
+  sizes = "(min-width: 1024px) 35rem, 100vw",
 }: ProjectCoverProps) {
   return (
     <div
@@ -22,7 +27,14 @@ export function ProjectCover({
       }${bleed ? " project-cover--bleed" : ""} ${className}`}
     >
       {image ? (
-        <img src={image} alt={`${title} cover`} className="project-cover-art" />
+        <Image
+          src={image}
+          alt={`${title} cover`}
+          fill
+          sizes={sizes}
+          className="project-cover-art"
+          priority={priority}
+        />
       ) : (
         <>
           <svg
@@ -31,6 +43,7 @@ export function ProjectCover({
             aria-hidden="true"
             className="project-cover-art"
           >
+            {variant === "techworks" ? <TechworksArt /> : null}
             {variant === "couch" ? <CouchArt /> : null}
             {variant === "precise" ? <PreciseArt /> : null}
             {variant === "mocdoc" ? <MocdocArt /> : null}
@@ -39,6 +52,24 @@ export function ProjectCover({
         </>
       )}
     </div>
+  );
+}
+
+function TechworksArt() {
+  return (
+    <g fill="none" stroke="currentColor" strokeWidth="0.7">
+      <rect x="18" y="16" width="124" height="68" opacity="0.22" />
+      <path
+        d="M40 72 L80 22 L120 72 Z"
+        fill="currentColor"
+        opacity="0.88"
+        stroke="none"
+      />
+      <rect x="72" y="48" width="16" height="24" fill="currentColor" opacity="0.55" stroke="none" />
+      <polyline points="28,30 48,30 48,42" opacity="0.45" />
+      <polyline points="132,30 112,30 112,42" opacity="0.35" />
+      <circle cx="80" cy="38" r="3.5" fill="currentColor" stroke="none" opacity="0.95" />
+    </g>
   );
 }
 

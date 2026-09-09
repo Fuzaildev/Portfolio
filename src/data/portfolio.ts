@@ -1,3 +1,14 @@
+import type { NavItem, Project, Role } from "@/data/types";
+
+export type {
+  NavItem,
+  Project,
+  ProjectCoverVariant,
+  ProjectModule,
+  ProjectStat,
+  Role,
+} from "@/data/types";
+
 export const site = {
   name: "Fuzail Khan",
   shortName: "FK",
@@ -39,7 +50,7 @@ export const site = {
   },
 };
 
-export const indexNav = [
+export const indexNav: NavItem[] = [
   { id: "intro", label: "Intro", num: "01" },
   { id: "about", label: "About", num: "02" },
   { id: "work", label: "Selected Work", num: "03" },
@@ -54,49 +65,69 @@ export const aboutQuote = [
   "and fast for end users.",
 ];
 
-export type ProjectCoverVariant = "couch" | "precise" | "mocdoc";
-
-export type ProjectModule = {
-  name: string;
-  detail: string;
-};
-
-export type ProjectStat = {
-  value: string;
-  label: string;
-};
-
-export type Project = {
-  id: string;
-  slug: string;
-  title: string;
-  type: string;
-  year: string;
-  description: string;
-  stack: string[];
-  cover: ProjectCoverVariant;
-  coverImage?: string;
-  coverBleed?: boolean;
-  role: string;
-  client?: string;
-  overview: string;
-  challenge: string;
-  outcome: string;
-  quote?: string;
-  highlights: string[];
-  stats?: ProjectStat[];
-  markets?: string[];
-  modules?: ProjectModule[];
-  tools?: string[];
-  liveUrl?: string;
-  repoUrl?: string;
-  modulesHeading?: string;
-  stripLabel?: string;
-};
-
 export const projects: Project[] = [
   {
     id: "01",
+    slug: "precision-techworks",
+    title: "Precision Techworks",
+    type: "Full Stack",
+    year: "2026",
+    description:
+      "CAD design and 3D printing studio site for India, USA, UK, and worldwide — end-to-end build with SEO and AEO baked in.",
+    stack: ["React", "Vite", "GSAP", "Lenis", "Three.js"],
+    cover: "techworks",
+    coverImage: "/work/precision-techworks.jpg",
+    coverBleed: true,
+    role: "Full Stack Engineer",
+    client: "Precision Techworks",
+    liveUrl: "https://www.precisiontechworks.in/",
+    overview:
+      "Precision Techworks is a CAD design and 3D printing studio based in India. I built the site end to end: brand hero, services, selected work, process pipeline, FAQ, and consultation path, with SEO and AEO (structured data, speakable answers, FAQ schema) so search and answer engines can cite the studio clearly.",
+    challenge:
+      "The brand sells both digital CAD delivery and physical printed parts across time zones. The site had to feel industrial and precise, showcase models you can hold, and answer buyer questions (files, materials, shipping, pricing) in a way that works for Google, AI overviews, and remote WhatsApp leads — without reading like a keyword dump.",
+    outcome:
+      "The live site opens on craft, then walks visitors through CAD and print services, a project gallery, a four-step pipeline, and an FAQ tuned for answer engines. Schema covers organization, services, how-to, FAQ, and work gallery, with clear routes from first look to a consultation.",
+    quote: "From model to matter. Built for search and answers.",
+    stats: [
+      { value: "02", label: "Core services" },
+      { value: "06", label: "Projects shown" },
+      { value: "10", label: "FAQ answers" },
+      { value: "WW", label: "Markets served" },
+    ],
+    markets: ["India", "USA", "UK", "Europe", "Worldwide"],
+    stripLabel: "Serving",
+    modulesHeading: "Services, work, pipeline, and answers.",
+    modules: [
+      {
+        name: "Services",
+        detail:
+          "CAD design and 3D printing under one roof — parametric models to production-ready parts.",
+      },
+      {
+        name: "Works",
+        detail:
+          "Selected CAD and printed projects: lamps, racks, enclosures, and desk pieces you can hold.",
+      },
+      {
+        name: "Pipeline",
+        detail:
+          "Brief, design, print, delivery: a four-step path from request to shipped files or parts.",
+      },
+      {
+        name: "SEO / AEO",
+        detail:
+          "Schema graph, FAQPage, HowTo, speakable copy, and service pages for search and answer engines.",
+      },
+    ],
+    tools: ["CAD Design", "3D Printing", "FAQ / AEO", "Consultation"],
+    highlights: [
+      "End-to-end site for Precision Techworks: brand, services, work, process, and leads.",
+      "SEO and AEO with Organization, FAQPage, HowTo, ItemList, and speakable structured data.",
+      "Remote-ready story for India, USA, UK, and worldwide CAD delivery and part shipping.",
+    ],
+  },
+  {
+    id: "02",
     slug: "couch-and-closet",
     title: "Couch & Closet",
     type: "Full Stack",
@@ -156,7 +187,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: "02",
+    id: "03",
     slug: "precise-erp",
     title: "Precise ERP",
     type: "Frontend Engineering",
@@ -216,7 +247,7 @@ export const projects: Project[] = [
     modulesHeading: "Five modules, one system.",
   },
   {
-    id: "03",
+    id: "04",
     slug: "mocdoc",
     title: "MocDoc",
     type: "Full Stack",
@@ -284,15 +315,6 @@ export function getNextProject(slug: string) {
   if (index < 0) return projects[0];
   return projects[(index + 1) % projects.length];
 }
-
-export type Role = {
-  id: string;
-  company: string;
-  title: string;
-  period: string;
-  summary: string;
-  points: string[];
-};
 
 export const roles: Role[] = [
   {

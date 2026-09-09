@@ -1,5 +1,3 @@
-"use client";
-
 import { IdentityRail } from "@/components/layout/IdentityRail";
 import { IntroSection } from "@/components/sections/IntroSection";
 import { WorkGallery } from "@/components/sections/WorkGallery";

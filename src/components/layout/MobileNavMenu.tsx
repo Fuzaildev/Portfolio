@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { indexNav } from "@/data/portfolio";
 
@@ -9,20 +9,24 @@ type MobileNavMenuProps = {
   onNavigate: (id: string) => void;
 };
 
+function useIsClient() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
+
 export function MobileNavMenu({ active, onNavigate }: MobileNavMenuProps) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const isClient = useIsClient();
 
-  const close = useCallback(() => setOpen(false), []);
+  const close = () => setOpen(false);
 
   const handleNavigate = (id: string) => {
     close();
     onNavigate(id);
   };
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -32,12 +36,13 @@ export function MobileNavMenu({ active, onNavigate }: MobileNavMenuProps) {
   }, [open]);
 
   useEffect(() => {
+    if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
-    if (open) window.addEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, close]);
+  }, [open]);
 
   const menu = (
     <>
@@ -87,7 +92,7 @@ export function MobileNavMenu({ active, onNavigate }: MobileNavMenuProps) {
   return (
     <>
       <span className="folio-hamburger-slot lg:hidden" aria-hidden="true" />
-      {mounted ? createPortal(menu, document.body) : menu}
+      {isClient ? createPortal(menu, document.body) : menu}
     </>
   );
 }
