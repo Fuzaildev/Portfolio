@@ -50,7 +50,7 @@ export function IntroSection() {
       </h2>
 
       <p className="intro-fade mt-6 max-w-2xl text-sm leading-relaxed text-muted sm:mt-8 sm:text-base md:text-lg">
-        Full-stack engineer working across React, Python, APIs, databases, and
+        Full-stack Engineer working across React, Python, APIs, databases, and
         the systems that connect them.
       </p>
 

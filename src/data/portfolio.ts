@@ -34,7 +34,7 @@ export const site = {
     "MySQL",
   ],
   statement:
-    "Full-stack engineer working across React, Python, APIs, databases, and the systems that connect them.",
+    "Full-stack Engineer working across React, Python, APIs, databases, and the systems that connect them.",
   bio: [
     "From the interface users interact with to the API, database, and deployment underneath it, I enjoy working across the stack and making the pieces work together properly.",
     "My work spans SaaS products, business platforms, healthcare systems, and high-end marketing sites. I care about clean interfaces, sensible architecture, performance, and shipping something that can actually be used—not just something that looks good in a demo.",
