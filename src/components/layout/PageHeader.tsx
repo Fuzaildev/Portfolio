@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { MobileNavMenu } from "@/components/layout/MobileNavMenu";
 import { ProfileLinks } from "@/components/ProfileLinks";
+// import { ThemeToggle } from "@/components/ThemeToggle";
 import { site } from "@/data/portfolio";
 import { splitSiteName } from "@/lib/brand";
 
@@ -32,7 +33,10 @@ export function PageHeader() {
         <span>{firstName}</span>
         <span className="page-header-last">{lastName}</span>
       </Link>
-      <ProfileLinks className="page-header-profiles" />
+      <div className="page-header-profiles theme-row">
+        <ProfileLinks />
+        {/* <ThemeToggle /> */}
+      </div>
       <MobileNavMenu
         active={active}
         onNavigate={(id) => router.push(`/#${id}`)}

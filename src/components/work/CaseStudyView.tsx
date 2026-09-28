@@ -111,7 +111,7 @@ export function CaseStudyView({ project }: { project: Project }) {
           <p className="label-mono text-muted">
             {project.id} /{" "}
             <Link href="/#work" className="case-back">
-              Selected work
+              Recent works
             </Link>
           </p>
           <p className="label-mono text-muted">

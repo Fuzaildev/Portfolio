@@ -3,6 +3,7 @@ import { Fraunces, Manrope, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { jsonLd, seo } from "@/lib/seo";
 import { site } from "@/data/portfolio";
+// import { themeInitScript } from "@/lib/theme";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 
@@ -105,6 +106,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
+        {/* <script dangerouslySetInnerHTML={{ __html: themeInitScript }} /> */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

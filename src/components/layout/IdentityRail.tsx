@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { ProfileLinks } from "@/components/ProfileLinks";
 import { MobileNavMenu } from "@/components/layout/MobileNavMenu";
+// import { ThemeToggle } from "@/components/ThemeToggle";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useCompactNav } from "@/hooks/useCompactNav";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
@@ -106,7 +107,10 @@ export function IdentityRail() {
             <p className="rail-boot folio-role max-w-sm text-sm leading-relaxed text-muted md:text-[0.95rem]">
               {site.role}
             </p>
-            <ProfileLinks className="rail-boot folio-profiles-mobile mt-4 lg:hidden" />
+            <div className="rail-boot folio-profiles-mobile theme-row mt-4">
+              <ProfileLinks />
+              {/* <ThemeToggle /> */}
+            </div>
             <p className="rail-boot folio-statement mt-5 hidden max-w-prose text-sm leading-relaxed text-muted md:block">
               {site.statement}
             </p>
@@ -139,10 +143,6 @@ export function IdentityRail() {
             </Link>
           ))}
         </nav>
-      </div>
-
-      <div className="folio-rail-footer">
-        <ProfileLinks className="rail-boot" />
       </div>
     </aside>
   );

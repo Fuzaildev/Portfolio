@@ -177,7 +177,7 @@ export function WorkGallery() {
       <div ref={pinRef} className="work-pin work-bleed">
         <div className="work-headline section-head mb-6 sm:mb-8 md:mb-10">
           <div>
-            <p className="label-mono text-muted">03 / Selected Work</p>
+            <p className="label-mono text-muted">03 / Recent Works</p>
             <h2 className="display-serif section-title mt-3 font-medium sm:mt-4">
               Projects
             </h2>
@@ -229,7 +229,7 @@ export function WorkGallery() {
           ) : null}
         </div>
 
-        <div ref={scrollerRef} className="work-scroller" data-lenis-prevent>
+        <div ref={scrollerRef} className="work-scroller">
           <div ref={trackRef} className="work-track">
             {projects.map((project) => (
               <ProjectPanel key={project.id} project={project} />

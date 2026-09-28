@@ -4,6 +4,8 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { indexNav } from "@/data/portfolio";
 import { ProfileLinks } from "@/components/ProfileLinks";
+// import { ThemeToggle } from "@/components/ThemeToggle";
+import { useLenis } from "@/components/providers/SmoothScrollProvider";
 
 type MobileNavMenuProps = {
   active: string;
@@ -21,20 +23,28 @@ function useIsClient() {
 export function MobileNavMenu({ active, onNavigate }: MobileNavMenuProps) {
   const [open, setOpen] = useState(false);
   const isClient = useIsClient();
+  const lenis = useLenis();
 
   const close = () => setOpen(false);
 
   const handleNavigate = (id: string) => {
     close();
+    // A stopped Lenis ignores scrollTo, so resume before navigating.
+    lenis?.start();
     onNavigate(id);
   };
 
   useEffect(() => {
+    if (lenis) {
+      if (open) lenis.stop();
+      else lenis.start();
+      return () => lenis.start();
+    }
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [open, lenis]);
 
   useEffect(() => {
     if (!open) return;
@@ -85,7 +95,10 @@ export function MobileNavMenu({ active, onNavigate }: MobileNavMenuProps) {
               </button>
             ))}
           </nav>
-          <ProfileLinks className="folio-menu-profiles" />
+          <div className="folio-menu-profiles theme-row">
+            <ProfileLinks />
+            {/* <ThemeToggle /> */}
+          </div>
         </div>
       </div>
     </>

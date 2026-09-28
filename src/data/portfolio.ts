@@ -54,7 +54,7 @@ export const site = {
 export const indexNav: NavItem[] = [
   { id: "intro", label: "Intro", num: "01" },
   { id: "about", label: "About", num: "02" },
-  { id: "work", label: "Selected Work", num: "03" },
+  { id: "work", label: "Recent Works", num: "03" },
   { id: "experience", label: "Experience", num: "04" },
   { id: "contact", label: "Contact", num: "05" },
 ];
