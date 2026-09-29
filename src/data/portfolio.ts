@@ -351,7 +351,7 @@ export const capabilityGroups = [
   },
   {
     label: "Backend",
-    items: ["Express.js", "Python", "Django", "Flask", "REST APIs"],
+    items: ["Node.js", "Express.js", "Python", "Django", "Flask", "REST APIs"],
   },
   {
     label: "Data",

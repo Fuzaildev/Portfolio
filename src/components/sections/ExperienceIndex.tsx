@@ -6,6 +6,9 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { roles } from "@/data/portfolio";
 import { prefersReducedMotion } from "@/lib/motion";
 
+/** The work gallery pins asynchronously above this section; measure after it. */
+const AFTER_PINS = -1;
+
 export function ExperienceIndex() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -14,20 +17,31 @@ export function ExperienceIndex() {
       const section = sectionRef.current;
       if (!section || prefersReducedMotion()) return;
 
-      const progress = section.querySelector(".exp-timeline-progress");
+      const progress = section.querySelector<HTMLElement>(".exp-timeline-progress");
+      const traveler = section.querySelector<HTMLElement>(".exp-traveler");
       const items = gsap.utils.toArray<HTMLElement>(".exp-item");
 
-      if (progress) {
+      if (progress && traveler) {
         gsap.set(progress, { scaleY: 0, transformOrigin: "top center" });
-        gsap.to(progress, {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".exp-list",
-            start: "top 70%",
-            end: "bottom 35%",
-            scrub: 0.35,
+        gsap.set(traveler, { top: "0%" });
+
+        const state = { p: 0 };
+        const follow = gsap.quickTo(state, "p", {
+          duration: 0.55,
+          ease: "power3.out",
+          onUpdate: () => {
+            gsap.set(progress, { scaleY: state.p });
+            gsap.set(traveler, { top: `${state.p * 100}%` });
           },
+        });
+
+        ScrollTrigger.create({
+          trigger: ".exp-list",
+          start: "top 70%",
+          end: "bottom 55%",
+          refreshPriority: AFTER_PINS,
+          onUpdate: (self) => follow(self.progress),
+          onRefresh: (self) => follow(self.progress),
         });
       }
 
@@ -38,6 +52,7 @@ export function ExperienceIndex() {
           trigger: item,
           start: "top 55%",
           end: "bottom 55%",
+          refreshPriority: AFTER_PINS,
           onToggle: (self) => {
             item.classList.toggle("is-active", self.isActive);
           },
@@ -62,6 +77,7 @@ export function ExperienceIndex() {
         <div className="exp-timeline" aria-hidden="true">
           <span className="exp-timeline-line" />
           <span className="exp-timeline-progress" />
+          <span className="exp-traveler" />
         </div>
 
         {roles.map((role, index) => (

@@ -871,7 +871,7 @@ html.folio-nav-compact .folio-hamburger {
 
 .exp-timeline {
   position: absolute;
-  left: 0.35rem;
+  left: 6px;
   top: 1.75rem;
   bottom: 1.75rem;
   width: 1px;
@@ -894,6 +894,20 @@ html.folio-nav-compact .folio-hamburger {
   transform-origin: top center;
 }
 
+/* Odd pixel sizes keep the dot centered on the 1px line at fractional DPR. */
+.exp-traveler {
+  position: absolute;
+  left: -4px;
+  top: 0;
+  z-index: 2;
+  width: 9px;
+  height: 9px;
+  margin-top: -4.5px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 14px 4px color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
 .exp-item {
   position: relative;
   display: grid;
@@ -912,10 +926,10 @@ html.folio-nav-compact .folio-hamburger {
 
 .exp-dot {
   position: absolute;
-  left: 0.2rem;
+  left: 3px;
   top: 2.15rem;
-  width: 0.45rem;
-  height: 0.45rem;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--line);
   transition: background 0.3s ease;
@@ -1803,6 +1817,10 @@ html.folio-nav-compact .folio-hamburger {
 
   .exp-item {
     opacity: 1;
+  }
+
+  .exp-traveler {
+    display: none;
   }
 
   .case-live-btn {
